@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model SiteSettings {
+  id              String  @id @default("default")
+  phone           String
+  whatsappE164    String
+  instagramHandle String
+  instagramUrl    String
+  seoTitle        String
+  seoDescription  String
+  ogImage         String?
+}
+
+model PageSection {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  title     String
+  body      String
+  imageUrl  String?
+  ctaLabel  String?
+  sortOrder Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model Collection {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  name          String
+  tagline       String
+  description   String
+  coverImageUrl String?
+  published     Boolean   @default(false)
+  sortOrder     Int       @default(0)
+  products      Product[]
+}
+
+model Product {
+  id           String     @id @default(cuid())
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  slug         String     @unique
+  name         String
+  description  String
+  imageUrl     String?
+  available    Boolean    @default(true)
+  sortOrder    Int        @default(0)
+}
+
+model Testimonial {
+  id        String  @id @default(cuid())
+  quote     String
+  author    String
+  published Boolean @default(false)
+  sortOrder Int     @default(0)
+}

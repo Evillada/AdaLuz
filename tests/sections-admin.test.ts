@@ -55,6 +55,15 @@ describe("SectionSchema", () => {
       expect(result.error.flatten().fieldErrors.sortOrder).toBeDefined();
     }
   });
+
+  it("accepts local upload paths from the admin uploader", () => {
+    expect(
+      SectionSchema.parse({
+        ...validSection,
+        imageUrl: "/uploads/a1b2c3d4-e5f6.webp",
+      }).imageUrl,
+    ).toBe("/uploads/a1b2c3d4-e5f6.webp");
+  });
 });
 
 describe("section actions", () => {

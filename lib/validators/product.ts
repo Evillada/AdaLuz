@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { optionalMediaUrl } from "@/lib/validators/media-url";
+
 const optionalSlug = z.preprocess(
   (value) =>
     typeof value === "string" && value.trim() === "" ? undefined : value,
@@ -14,12 +16,6 @@ const optionalSlug = z.preprocess(
     .optional(),
 );
 
-const optionalUrl = z.preprocess(
-  (value) =>
-    typeof value === "string" && value.trim() === "" ? undefined : value,
-  z.url("Ingresa una URL válida.").optional(),
-);
-
 const checkbox = z.preprocess(
   (value) => value === true || value === "on" || value === "true",
   z.boolean(),
@@ -29,7 +25,7 @@ export const ProductSchema = z.object({
   name: z.string().trim().min(1, "El nombre es obligatorio."),
   slug: optionalSlug,
   description: z.string().trim().min(1, "La descripción es obligatoria."),
-  imageUrl: optionalUrl,
+  imageUrl: optionalMediaUrl,
   available: checkbox,
   sortOrder: z.coerce
     .number()

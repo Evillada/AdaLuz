@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { ClosingCtaSection } from "@/components/home/ClosingCtaSection";
 import { CollectionsTeaserSection } from "@/components/home/CollectionsTeaserSection";
 import { CorporateGiftsSection } from "@/components/home/CorporateGiftsSection";
@@ -5,12 +7,25 @@ import { CraftSection } from "@/components/home/CraftSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { LightInLifeSection } from "@/components/home/LightInLifeSection";
 import { TrustSection } from "@/components/home/TrustSection";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { listPublishedCollections } from "@/lib/data/collections";
 import { getSection } from "@/lib/data/sections";
 import { getSiteSettings } from "@/lib/data/settings";
+import { createPublicMetadata, getSiteUrl } from "@/lib/seo";
 import { listPublishedTestimonials } from "@/lib/data/testimonials";
 
 export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+
+  return createPublicMetadata({
+    settings,
+    title: settings.seoTitle,
+    description: settings.seoDescription,
+    path: "/",
+  });
+}
 
 export default async function Home() {
   const [
@@ -39,6 +54,23 @@ export default async function Home() {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Adaluz",
+          url: getSiteUrl(),
+          description: settings.seoDescription,
+          logo: settings.ogImage ?? undefined,
+          sameAs: [settings.instagramUrl],
+          contactPoint: {
+            "@type": "ContactPoint",
+            telephone: `+${settings.whatsappE164}`,
+            contactType: "customer service",
+            availableLanguage: "Spanish",
+          },
+        }}
+      />
       <HeroSection
         title={hero?.title ?? "La luz que acompaña tu vida"}
         body={

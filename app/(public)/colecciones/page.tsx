@@ -1,11 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CatalogEmptyState } from "@/components/catalog/CatalogEmptyState";
 import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { listPublishedCollections } from "@/lib/data/collections";
 import { getSiteSettings } from "@/lib/data/settings";
+import { createPublicMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+
+  return createPublicMetadata({
+    settings,
+    title: "Colecciones | Adaluz",
+    description:
+      "Descubre colecciones de velas artesanales creadas en Colombia para acompañar tus rituales, espacios y momentos.",
+    path: "/colecciones",
+  });
+}
 
 export default async function CollectionsPage() {
   const [collections, settings] = await Promise.all([

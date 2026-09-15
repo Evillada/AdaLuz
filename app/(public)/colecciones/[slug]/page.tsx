@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -5,8 +6,31 @@ import { CatalogEmptyState } from "@/components/catalog/CatalogEmptyState";
 import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { getPublishedCollectionBySlug } from "@/lib/data/collections";
 import { getSiteSettings } from "@/lib/data/settings";
+import { createPublicMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
+
+export async function generateMetadata(
+  props: PageProps<"/colecciones/[slug]">,
+): Promise<Metadata> {
+  const { slug } = await props.params;
+  const [collection, settings] = await Promise.all([
+    getPublishedCollectionBySlug(slug),
+    getSiteSettings(),
+  ]);
+
+  if (!collection) {
+    notFound();
+  }
+
+  return createPublicMetadata({
+    settings,
+    title: `${collection.name} | Adaluz`,
+    description: collection.description,
+    path: `/colecciones/${collection.slug}`,
+    image: collection.coverImageUrl,
+  });
+}
 
 export default async function CollectionPage(
   props: PageProps<"/colecciones/[slug]">,

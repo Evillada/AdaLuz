@@ -1,8 +1,23 @@
+import type { Metadata } from "next";
+
 import { PublicPageIntro } from "@/components/layout/PublicPageIntro";
 import { getSection } from "@/lib/data/sections";
 import { getSiteSettings } from "@/lib/data/settings";
+import { createPublicMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+
+  return createPublicMetadata({
+    settings,
+    title: "Contacto | Adaluz",
+    description:
+      "Habla con Adaluz por WhatsApp para elegir una vela, preparar un regalo o explorar una colaboración en Colombia.",
+    path: "/contacto",
+  });
+}
 
 export default async function ContactPage() {
   const [section, settings] = await Promise.all([

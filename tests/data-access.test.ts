@@ -13,6 +13,7 @@ const db = vi.hoisted(() => ({
   },
   product: {
     findFirst: vi.fn(),
+    findMany: vi.fn(),
   },
   testimonial: {
     findMany: vi.fn(),
@@ -25,7 +26,10 @@ import {
   getPublishedCollectionBySlug,
   listPublishedCollections,
 } from "@/lib/data/collections";
-import { getAvailableProductBySlug } from "@/lib/data/products";
+import {
+  getAvailableProductBySlug,
+  listAvailableProducts,
+} from "@/lib/data/products";
 import { getSection } from "@/lib/data/sections";
 import { getSiteSettings } from "@/lib/data/settings";
 import { listPublishedTestimonials } from "@/lib/data/testimonials";
@@ -99,6 +103,19 @@ describe("public data access", () => {
         collection: { published: true },
       },
       include: { collection: true },
+    });
+  });
+
+  it("lists only available products in published collections", async () => {
+    db.product.findMany.mockResolvedValue([]);
+
+    await expect(listAvailableProducts()).resolves.toEqual([]);
+    expect(db.product.findMany).toHaveBeenCalledWith({
+      where: {
+        available: true,
+        collection: { published: true },
+      },
+      orderBy: { sortOrder: "asc" },
     });
   });
 

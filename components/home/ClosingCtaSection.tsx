@@ -1,3 +1,4 @@
+import { AtmosphereMedia } from "@/components/brand/AtmosphereMedia";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -19,24 +20,32 @@ export function ClosingCtaSection({
   cta,
 }: ClosingCtaSectionProps) {
   return (
-    <section className="relative isolate overflow-hidden bg-bronze px-6 py-24 text-center text-cream sm:py-36">
+    <section className="band-bronze relative isolate overflow-hidden px-6 py-28 text-center sm:py-40">
+      <div className="absolute inset-0 -z-20 opacity-40">
+        <AtmosphereMedia
+          imageUrl={imageUrl}
+          kenBurns
+          tone="dark"
+          className="absolute inset-0 h-full w-full"
+        />
+      </div>
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-cover bg-center opacity-20"
-        style={imageUrl ? { backgroundImage: `url("${imageUrl}")` } : undefined}
+        className="absolute inset-0 -z-10 bg-bronze/70"
       />
       <Reveal className="mx-auto max-w-3xl">
-        <h2 className="font-serif text-5xl leading-none text-glow sm:text-7xl">
+        <div className="mx-auto gold-rule opacity-90" />
+        <h2 className="mt-8 font-serif text-5xl leading-[0.95] tracking-[-0.02em] text-glow sm:text-7xl">
           {title}
         </h2>
-        <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-cream/80">
+        <p className="mx-auto mt-8 max-w-xl text-lg leading-9 text-cream/80">
           {body}
         </p>
         <WhatsAppLink
           e164={cta.e164}
           message={cta.message}
           label={cta.label}
-          className="mt-10 inline-flex border-b border-glow pb-1 text-sm font-semibold tracking-[0.16em] text-glow uppercase transition-colors hover:text-cream"
+          className="mt-12 inline-flex border-b border-glow pb-1.5 text-sm font-semibold tracking-[0.18em] text-glow uppercase transition-colors hover:border-cream hover:text-cream"
         />
       </Reveal>
     </section>

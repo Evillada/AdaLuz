@@ -17,13 +17,13 @@ export function SiteFooter({
   instagramUrl,
 }: SiteFooterProps) {
   return (
-    <footer className="mt-auto border-t border-ochre/20 bg-bronze text-cream">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 px-6 py-10 text-center sm:flex-row sm:text-left">
+    <footer className="band-bronze mt-auto border-t border-glow/15">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-10 px-6 py-14 text-center sm:flex-row sm:text-left">
         <Link href="/" aria-label="Adaluz, inicio">
-          <Logo variant="lockup" className="w-24 brightness-0 invert" />
+          <Logo variant="lockup" className="w-28 brightness-0 invert" />
         </Link>
 
-        <div className="flex flex-col gap-2 text-sm">
+        <div className="flex flex-col gap-3 text-sm tracking-wide text-cream/80">
           <WhatsAppLink
             e164={whatsappE164}
             label={`WhatsApp · ${phoneDisplay}`}

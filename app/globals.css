@@ -6,8 +6,10 @@
   --ochre: #c4a035;
   --bronze: #4a3426;
   --gold-metal: #b8952e;
+  --ink-soft: color-mix(in srgb, var(--bronze) 72%, transparent);
   --background: var(--cream);
   --foreground: var(--bronze);
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 }
 
 @theme inline {
@@ -25,15 +27,169 @@
 html {
   color: var(--foreground);
   background: var(--background);
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100dvh;
   background:
     radial-gradient(
-      1200px 600px at 70% -10%,
+      900px 520px at 12% -8%,
+      color-mix(in srgb, var(--glow) 42%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      1100px 640px at 88% 8%,
+      color-mix(in srgb, var(--ochre) 18%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--cream) 92%, white) 0%,
+      var(--cream) 38%,
+      color-mix(in srgb, var(--cream) 88%, var(--glow)) 100%
+    );
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: var(--grain);
+  background-size: 180px 180px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--ochre) 35%, transparent);
+  color: var(--bronze);
+}
+
+.band-cream {
+  background:
+    radial-gradient(
+      700px 380px at 80% 0%,
+      color-mix(in srgb, var(--glow) 28%, transparent),
+      transparent 70%
+    ),
+    color-mix(in srgb, var(--cream) 94%, white);
+}
+
+.band-warm {
+  background:
+    radial-gradient(
+      800px 420px at 10% 20%,
+      color-mix(in srgb, var(--glow) 40%, transparent),
+      transparent 65%
+    ),
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--cream) 70%, var(--glow)) 0%,
+      var(--cream) 55%,
+      color-mix(in srgb, var(--cream) 85%, var(--ochre)) 100%
+    );
+}
+
+.band-bronze {
+  background:
+    radial-gradient(
+      900px 500px at 70% -20%,
+      color-mix(in srgb, var(--ochre) 35%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      600px 400px at 10% 90%,
+      color-mix(in srgb, var(--glow) 12%, transparent),
+      transparent 50%
+    ),
+    linear-gradient(160deg, #3a281c 0%, var(--bronze) 45%, #5a4030 100%);
+  color: var(--cream);
+}
+
+.band-ochre {
+  background:
+    radial-gradient(
+      700px 420px at 90% 10%,
       color-mix(in srgb, var(--glow) 55%, transparent),
       transparent 60%
     ),
-    var(--cream);
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--ochre) 88%, white) 0%,
+      var(--ochre) 48%,
+      color-mix(in srgb, var(--ochre) 75%, var(--bronze)) 100%
+    );
+}
+
+.gold-rule {
+  height: 1px;
+  width: 4.5rem;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-metal),
+    transparent
+  );
+}
+
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.media-frame::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold-metal) 28%, transparent);
+}
+
+.atmosphere-fill {
+  background:
+    radial-gradient(
+      circle at 50% 28%,
+      color-mix(in srgb, var(--glow) 85%, white),
+      transparent 28%
+    ),
+    radial-gradient(
+      ellipse at 50% 78%,
+      color-mix(in srgb, var(--ochre) 45%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      165deg,
+      #2a1c14 0%,
+      #4a3426 42%,
+      #6b4e2e 72%,
+      #3d2a1c 100%
+    );
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.05) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+.ken-burns {
+  animation: ken-burns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .ken-burns {
+    animation: none;
+  }
 }

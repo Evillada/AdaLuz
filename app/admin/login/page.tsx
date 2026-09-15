@@ -1,6 +1,7 @@
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 
+import { LoginForm } from "@/components/admin/LoginForm";
 import { signIn } from "@/lib/auth";
 
 type LoginPageProps = {
@@ -41,42 +42,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           Ingresa con las credenciales de administración.
         </p>
 
-        <form action={login} className="mt-8 space-y-5">
-          <label className="block text-sm font-medium">
-            Correo electrónico
-            <input
-              autoComplete="email"
-              className="mt-2 w-full rounded-lg border border-bronze/20 bg-white/70 px-4 py-3 outline-none transition focus:border-ochre focus:ring-2 focus:ring-ochre/20"
-              name="email"
-              required
-              type="email"
-            />
-          </label>
-
-          <label className="block text-sm font-medium">
-            Contraseña
-            <input
-              autoComplete="current-password"
-              className="mt-2 w-full rounded-lg border border-bronze/20 bg-white/70 px-4 py-3 outline-none transition focus:border-ochre focus:ring-2 focus:ring-ochre/20"
-              name="password"
-              required
-              type="password"
-            />
-          </label>
-
-          {error ? (
-            <p aria-live="polite" className="text-sm text-red-700" role="alert">
-              El correo o la contraseña no son válidos.
-            </p>
-          ) : null}
-
-          <button
-            className="w-full rounded-full bg-bronze px-5 py-3 font-semibold text-cream transition hover:bg-bronze/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ochre"
-            type="submit"
-          >
-            Ingresar
-          </button>
-        </form>
+        <LoginForm action={login} hasError={Boolean(error)} />
       </section>
     </main>
   );

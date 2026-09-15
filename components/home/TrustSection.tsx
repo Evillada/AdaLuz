@@ -18,7 +18,7 @@ export function TrustSection({
   testimonials,
 }: TrustSectionProps) {
   return (
-    <section className="band-warm section-blend relative px-6 py-28 sm:py-40">
+    <section className="band-light section-blend relative px-6 py-28 sm:py-40">
       <Reveal className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           {eyebrow && (
@@ -38,12 +38,12 @@ export function TrustSection({
           {testimonials.map((testimonial, index) => (
             <blockquote
               key={testimonial.attribution}
-              className={`border-l border-ochre/40 pl-6 ${index === 1 ? "md:mt-10" : ""}`}
+              className={`border-l border-ochre/35 pl-6 ${index === 1 ? "md:mt-10" : ""}`}
             >
               <p className="font-serif text-2xl leading-snug text-bronze sm:text-[1.7rem]">
                 “{testimonial.quote}”
               </p>
-              <footer className="mt-6 text-sm tracking-[0.08em] text-bronze/60">
+              <footer className="mt-6 text-sm tracking-[0.08em] text-bronze/55">
                 {testimonial.attribution}
               </footer>
             </blockquote>

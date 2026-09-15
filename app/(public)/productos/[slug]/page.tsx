@@ -48,7 +48,7 @@ export default async function ProductPage(
   }
 
   return (
-    <section className="band-cream section-blend px-6 py-24 sm:py-36">
+    <section className="band-light section-blend px-6 py-24 sm:py-36">
       <JsonLd
         data={{
           "@context": "https://schema.org",

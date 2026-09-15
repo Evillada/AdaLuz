@@ -46,7 +46,7 @@ export default async function CollectionPage(
   }
 
   return (
-    <section className="band-cream section-blend px-6 py-24 sm:py-36">
+    <section className="band-light section-blend px-6 py-24 sm:py-36">
       <div className="mx-auto w-full max-w-6xl">
         <p className="text-xs font-semibold tracking-[0.24em] text-ochre uppercase">
           Colección

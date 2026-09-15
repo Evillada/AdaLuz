@@ -13,7 +13,7 @@ export function CraftSection({
   cta,
 }: EditorialSectionProps) {
   return (
-    <section className="band-cream section-blend relative px-6 py-28 sm:py-40">
+    <section className="band-light section-blend relative px-6 py-28 sm:py-40">
       <Reveal className="mx-auto grid max-w-6xl gap-14 md:grid-cols-2 md:items-center md:gap-16">
         <div className="md:order-1">
           {eyebrow && (

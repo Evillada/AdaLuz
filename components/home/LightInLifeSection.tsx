@@ -13,11 +13,11 @@ export function LightInLifeSection({
   cta,
 }: EditorialSectionProps) {
   return (
-    <section className="band-warm section-blend relative px-6 py-28 sm:py-40">
+    <section className="band-light section-blend relative px-6 py-28 sm:py-40">
       <Reveal className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <AtmosphereMedia
           imageUrl={imageUrl}
-          tone="dark"
+          tone="warm"
           shape="bloom"
           className="mx-auto aspect-[5/6] min-h-[20rem] w-[min(100%,26rem)] lg:min-h-[28rem] lg:w-full"
         />

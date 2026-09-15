@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f7f1e6;
-  --glow: #f0e2a8;
+  --cream: #fffdf8;
+  --glow: #f3e4a8;
   --ochre: #c4a035;
   --bronze: #4a3426;
   --gold-metal: #b8952e;
-  --ink-soft: color-mix(in srgb, var(--bronze) 72%, transparent);
-  --background: var(--cream);
+  --ink-soft: color-mix(in srgb, var(--bronze) 70%, transparent);
+  --background: #ffffff;
   --foreground: var(--bronze);
   --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 }
@@ -34,21 +34,16 @@ body {
   min-height: 100dvh;
   background:
     radial-gradient(
-      900px 520px at 12% -8%,
-      color-mix(in srgb, var(--glow) 42%, transparent),
-      transparent 58%
+      1000px 560px at 15% -5%,
+      color-mix(in srgb, var(--glow) 38%, transparent),
+      transparent 62%
     ),
     radial-gradient(
-      1100px 640px at 88% 8%,
-      color-mix(in srgb, var(--ochre) 18%, transparent),
-      transparent 55%
+      900px 520px at 90% 12%,
+      color-mix(in srgb, var(--gold-metal) 12%, transparent),
+      transparent 58%
     ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--cream) 92%, white) 0%,
-      var(--cream) 38%,
-      color-mix(in srgb, var(--cream) 88%, var(--glow)) 100%
-    );
+    linear-gradient(180deg, #ffffff 0%, var(--cream) 55%, #ffffff 100%);
 }
 
 body::before {
@@ -57,71 +52,38 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: 50;
-  opacity: 0.045;
+  opacity: 0.03;
   mix-blend-mode: multiply;
   background-image: var(--grain);
   background-size: 180px 180px;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--ochre) 35%, transparent);
+  background: color-mix(in srgb, var(--glow) 55%, transparent);
   color: var(--bronze);
 }
 
-.band-cream {
-  background:
-    radial-gradient(
-      700px 380px at 80% 0%,
-      color-mix(in srgb, var(--glow) 28%, transparent),
-      transparent 70%
-    ),
-    color-mix(in srgb, var(--cream) 94%, white);
+/* Unified light sections: white + soft gold only */
+.band-light {
+  background: transparent;
+  color: var(--bronze);
 }
 
-.band-warm {
+.band-gold {
+  position: relative;
   background:
     radial-gradient(
-      800px 420px at 10% 20%,
-      color-mix(in srgb, var(--glow) 40%, transparent),
-      transparent 65%
+      80% 70% at 50% 40%,
+      color-mix(in srgb, var(--glow) 42%, transparent),
+      transparent 72%
     ),
     linear-gradient(
-      165deg,
-      color-mix(in srgb, var(--cream) 70%, var(--glow)) 0%,
-      var(--cream) 55%,
-      color-mix(in srgb, var(--cream) 85%, var(--ochre)) 100%
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--glow) 18%, transparent) 45%,
+      transparent 100%
     );
-}
-
-.band-bronze {
-  background:
-    radial-gradient(
-      900px 500px at 70% -20%,
-      color-mix(in srgb, var(--ochre) 35%, transparent),
-      transparent 55%
-    ),
-    radial-gradient(
-      600px 400px at 10% 90%,
-      color-mix(in srgb, var(--glow) 12%, transparent),
-      transparent 50%
-    ),
-    linear-gradient(160deg, #3a281c 0%, var(--bronze) 45%, #5a4030 100%);
-  color: var(--cream);
-}
-
-.band-ochre {
-  background:
-    radial-gradient(
-      700px 420px at 90% 10%,
-      color-mix(in srgb, var(--glow) 55%, transparent),
-      transparent 60%
-    ),
-    linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--ochre) 88%, white) 0%,
-      var(--ochre) 48%,
-      color-mix(in srgb, var(--ochre) 75%, var(--bronze)) 100%
-    );
+  color: var(--bronze);
 }
 
 .gold-rule {
@@ -145,8 +107,8 @@ body::before {
 .media-frame--soft {
   border-radius: 2.75rem;
   box-shadow:
-    0 28px 60px -36px color-mix(in srgb, var(--bronze) 45%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--gold-metal) 12%, transparent);
+    0 28px 60px -36px color-mix(in srgb, var(--gold-metal) 35%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--gold-metal) 14%, transparent);
 }
 
 .media-frame--soft::before {
@@ -157,8 +119,8 @@ body::before {
   z-index: 2;
   border-radius: inherit;
   box-shadow:
-    inset 0 0 48px 18px color-mix(in srgb, var(--cream) 55%, transparent),
-    inset 0 0 0 1px color-mix(in srgb, var(--gold-metal) 10%, transparent);
+    inset 0 0 48px 18px color-mix(in srgb, #ffffff 65%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--gold-metal) 12%, transparent);
 }
 
 .media-frame--soft::after {
@@ -172,13 +134,13 @@ body::before {
     radial-gradient(
       ellipse 88% 82% at 50% 46%,
       transparent 48%,
-      color-mix(in srgb, var(--bronze) 28%, transparent) 100%
+      color-mix(in srgb, var(--gold-metal) 18%, transparent) 100%
     );
 }
 
 .media-frame--bloom {
   border-radius: 46% 54% 48% 52% / 42% 48% 52% 58%;
-  box-shadow: 0 30px 70px -40px color-mix(in srgb, var(--bronze) 50%, transparent);
+  box-shadow: 0 30px 70px -40px color-mix(in srgb, var(--gold-metal) 40%, transparent);
 }
 
 .media-frame--bloom::before {
@@ -190,11 +152,11 @@ body::before {
   border-radius: inherit;
   background: radial-gradient(
     circle at 50% 50%,
-    color-mix(in srgb, var(--glow) 35%, transparent),
+    color-mix(in srgb, var(--glow) 45%, transparent),
     transparent 68%
   );
   filter: blur(28px);
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .media-frame--bloom::after {
@@ -204,9 +166,10 @@ body::before {
   inset: 0;
   z-index: 2;
   border-radius: inherit;
-  box-shadow: inset 0 0 42px 16px color-mix(in srgb, var(--cream) 40%, transparent);
+  box-shadow: inset 0 0 42px 16px color-mix(in srgb, #ffffff 50%, transparent);
 }
 
+/* Soft gold veil between sections — no hard color blocks */
 .section-blend {
   position: relative;
 }
@@ -217,44 +180,37 @@ body::before {
   position: absolute;
   left: 0;
   right: 0;
-  top: -4.5rem;
-  height: 9rem;
+  top: -5.5rem;
+  height: 11rem;
   z-index: 1;
   background: linear-gradient(
     to bottom,
-    color-mix(in srgb, var(--cream) 70%, transparent),
-    transparent 70%
+    color-mix(in srgb, #ffffff 88%, transparent) 0%,
+    color-mix(in srgb, var(--glow) 28%, transparent) 42%,
+    transparent 100%
   );
-  filter: blur(10px);
-  opacity: 0.85;
-}
-
-.section-blend--dark::before {
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--bronze) 55%, transparent),
-    transparent 75%
-  );
+  filter: blur(14px);
+  opacity: 0.95;
 }
 
 .atmosphere-fill {
   background:
     radial-gradient(
       circle at 50% 28%,
-      color-mix(in srgb, var(--glow) 85%, white),
-      transparent 28%
+      color-mix(in srgb, var(--glow) 90%, white),
+      transparent 30%
     ),
     radial-gradient(
       ellipse at 50% 78%,
-      color-mix(in srgb, var(--ochre) 45%, transparent),
+      color-mix(in srgb, var(--gold-metal) 28%, transparent),
       transparent 55%
     ),
     linear-gradient(
       165deg,
-      #2a1c14 0%,
-      #4a3426 42%,
-      #6b4e2e 72%,
-      #3d2a1c 100%
+      #f7f0dc 0%,
+      #e8d48a 38%,
+      #c4a035 68%,
+      #f5edd4 100%
     );
 }
 

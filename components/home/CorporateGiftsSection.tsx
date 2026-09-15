@@ -12,7 +12,7 @@ export function CorporateGiftsSection({
   cta,
 }: EditorialSectionProps) {
   return (
-    <section className="band-ochre relative isolate overflow-hidden px-6 py-28 text-bronze sm:py-40">
+    <section className="band-ochre section-blend relative isolate overflow-hidden px-6 py-28 text-bronze sm:py-40">
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-cover bg-center opacity-20 mix-blend-soft-light"

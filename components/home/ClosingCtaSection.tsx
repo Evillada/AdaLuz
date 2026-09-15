@@ -20,13 +20,14 @@ export function ClosingCtaSection({
   cta,
 }: ClosingCtaSectionProps) {
   return (
-    <section className="band-bronze relative isolate overflow-hidden px-6 py-28 text-center sm:py-40">
+    <section className="band-bronze section-blend section-blend--dark relative isolate overflow-hidden px-6 py-28 text-center sm:py-40">
       <div className="absolute inset-0 -z-20 opacity-40">
         <AtmosphereMedia
           imageUrl={imageUrl}
           kenBurns
           tone="dark"
-          className="absolute inset-0 h-full w-full"
+          shape="plain"
+          className="absolute inset-0 h-full w-full rounded-none"
         />
       </div>
       <div

@@ -13,14 +13,15 @@ export function LightInLifeSection({
   cta,
 }: EditorialSectionProps) {
   return (
-    <section className="band-warm relative px-6 py-28 sm:py-40">
-      <Reveal className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+    <section className="band-warm section-blend relative px-6 py-28 sm:py-40">
+      <Reveal className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <AtmosphereMedia
           imageUrl={imageUrl}
           tone="dark"
-          className="aspect-[4/5] min-h-[22rem] w-full lg:min-h-[32rem]"
+          shape="bloom"
+          className="mx-auto aspect-[5/6] min-h-[20rem] w-[min(100%,26rem)] lg:min-h-[28rem] lg:w-full"
         />
-        <div className="max-w-xl lg:pt-8">
+        <div className="max-w-xl lg:pt-4">
           {eyebrow && (
             <p className="text-xs font-semibold tracking-[0.28em] text-ochre uppercase">
               {eyebrow}

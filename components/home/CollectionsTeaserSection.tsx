@@ -25,7 +25,7 @@ export function CollectionsTeaserSection({
   cta,
 }: CollectionsTeaserSectionProps) {
   return (
-    <section className="band-bronze relative overflow-hidden px-6 py-28 sm:py-40">
+    <section className="band-bronze section-blend section-blend--dark relative overflow-hidden px-6 py-28 sm:py-40">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-glow/10 blur-3xl"
@@ -44,16 +44,17 @@ export function CollectionsTeaserSection({
           <p className="mt-7 text-lg leading-9 text-cream/75">{body}</p>
         </div>
 
-        <div className="mt-20 grid gap-10 md:grid-cols-3 md:gap-8">
+        <div className="mt-20 grid gap-14 md:grid-cols-3 md:gap-10">
           {items.map((item, index) => (
             <article
               key={item.title}
-              className={`group ${index === 1 ? "md:translate-y-10" : ""}`}
+              className={`group ${index === 1 ? "md:translate-y-8" : ""}`}
             >
               <AtmosphereMedia
                 imageUrl={item.imageUrl}
                 tone="dark"
-                className="aspect-[3/4] w-full transition-transform duration-700 group-hover:scale-[1.015]"
+                shape="soft"
+                className="aspect-[4/5] w-full transition-transform duration-700 group-hover:scale-[1.02]"
               />
               <p className="mt-7 text-xs tracking-[0.22em] text-glow">
                 0{index + 1}

@@ -18,7 +18,7 @@ export function TrustSection({
   testimonials,
 }: TrustSectionProps) {
   return (
-    <section className="band-warm relative px-6 py-28 sm:py-40">
+    <section className="band-warm section-blend relative px-6 py-28 sm:py-40">
       <Reveal className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           {eyebrow && (

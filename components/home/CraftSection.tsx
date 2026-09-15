@@ -13,9 +13,9 @@ export function CraftSection({
   cta,
 }: EditorialSectionProps) {
   return (
-    <section className="band-cream relative px-6 py-28 sm:py-40">
-      <Reveal className="mx-auto grid max-w-6xl gap-14 md:grid-cols-2 md:items-end md:gap-16">
-        <div className="md:pb-6">
+    <section className="band-cream section-blend relative px-6 py-28 sm:py-40">
+      <Reveal className="mx-auto grid max-w-6xl gap-14 md:grid-cols-2 md:items-center md:gap-16">
+        <div className="md:order-1">
           {eyebrow && (
             <p className="text-xs font-semibold tracking-[0.28em] text-ochre uppercase">
               {eyebrow}
@@ -41,7 +41,8 @@ export function CraftSection({
           imageUrl={imageUrl}
           kenBurns
           tone="warm"
-          className="aspect-[5/4] min-h-[18rem] w-full"
+          shape="soft"
+          className="aspect-[6/5] min-h-[16rem] w-full md:order-2"
         />
       </Reveal>
     </section>

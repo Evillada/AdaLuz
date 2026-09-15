@@ -46,7 +46,7 @@ export default async function CollectionPage(
   }
 
   return (
-    <section className="px-6 py-24 sm:py-36">
+    <section className="band-cream section-blend px-6 py-24 sm:py-36">
       <div className="mx-auto w-full max-w-6xl">
         <p className="text-xs font-semibold tracking-[0.24em] text-ochre uppercase">
           Colección
@@ -68,14 +68,14 @@ export default async function CollectionPage(
               message={`Hola Adaluz, quiero conocer la colección ${collection.name}.`}
             />
           ) : (
-            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
               {collection.products.map((product) => (
-                <article key={product.id}>
+                <article key={product.id} className="group">
                   <CatalogImage
                     imageUrl={product.imageUrl}
-                    className="aspect-square"
+                    className="aspect-[5/6] transition-transform duration-700 group-hover:scale-[1.02]"
                   />
-                  <h2 className="mt-6 font-serif text-3xl text-ochre">
+                  <h2 className="mt-7 font-serif text-3xl text-ochre">
                     {product.name}
                   </h2>
                   <p className="mt-3 leading-7 text-bronze/75">

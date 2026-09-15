@@ -3,6 +3,9 @@ type AtmosphereMediaProps = {
   className?: string;
   kenBurns?: boolean;
   tone?: "dark" | "warm" | "light";
+  /** soft = friendly rounded + feathered edge; bloom = organic glowing shape; plain = hero full-bleed */
+  shape?: "soft" | "bloom" | "plain";
+  "data-placeholder"?: string;
 };
 
 const toneClass: Record<NonNullable<AtmosphereMediaProps["tone"]>, string> = {
@@ -11,14 +14,25 @@ const toneClass: Record<NonNullable<AtmosphereMediaProps["tone"]>, string> = {
   light: "bg-gradient-to-br from-glow/50 via-cream to-ochre/20",
 };
 
+const shapeClass: Record<NonNullable<AtmosphereMediaProps["shape"]>, string> = {
+  soft: "media-frame--soft",
+  bloom: "media-frame--bloom",
+  plain: "",
+};
+
 export function AtmosphereMedia({
   imageUrl,
   className = "",
   kenBurns = false,
   tone = "dark",
+  shape = "soft",
+  "data-placeholder": dataPlaceholder,
 }: AtmosphereMediaProps) {
   return (
-    <div className={`media-frame relative ${className}`}>
+    <div
+      className={`media-frame relative ${shapeClass[shape]} ${className}`}
+      data-placeholder={dataPlaceholder}
+    >
       <div
         aria-hidden="true"
         className={`absolute inset-0 ${toneClass[tone]}`}
@@ -41,7 +55,7 @@ export function AtmosphereMedia({
       )}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-bronze/35 via-transparent to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-bronze/25 via-transparent to-cream/10"
       />
     </div>
   );

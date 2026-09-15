@@ -27,7 +27,8 @@ export function HeroSection({
           imageUrl={imageUrl}
           kenBurns
           tone="dark"
-          className="absolute inset-0 h-full w-full"
+          shape="plain"
+          className="absolute inset-0 h-full w-full rounded-none"
         />
       </div>
       <div

@@ -1,5 +1,18 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/lib/data/settings", () => ({
+  getSiteSettings: vi.fn().mockResolvedValue({
+    id: "default",
+    phone: "3113187927",
+    whatsappE164: "573113187927",
+    instagramHandle: "@velasadaluz",
+    instagramUrl: "https://instagram.com/velasadaluz",
+    seoTitle: "Adaluz",
+    seoDescription: "Velas artesanales",
+    ogImage: null,
+  }),
+}));
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -62,11 +75,12 @@ describe("SiteFooter", () => {
 });
 
 describe("PublicLayout", () => {
-  it("wires public navigation and contact destinations", () => {
+  it("wires public navigation and contact destinations", async () => {
     const html = renderToStaticMarkup(
-      <PublicLayout params={Promise.resolve({})}>
-        <p>Contenido</p>
-      </PublicLayout>,
+      await PublicLayout({
+        params: Promise.resolve({}),
+        children: <p>Contenido</p>,
+      }),
     );
 
     expect(html).toContain('href="/colecciones"');

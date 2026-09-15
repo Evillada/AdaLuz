@@ -4,6 +4,7 @@ type PublicPageIntroProps = {
   eyebrow?: string;
   title: string;
   body: string;
+  whatsappE164?: string;
   whatsappMessage?: string;
 };
 
@@ -11,6 +12,7 @@ export function PublicPageIntro({
   eyebrow,
   title,
   body,
+  whatsappE164 = "573113187927",
   whatsappMessage,
 }: PublicPageIntroProps) {
   return (
@@ -29,7 +31,7 @@ export function PublicPageIntro({
             {body}
           </p>
           <WhatsAppLink
-            e164="573113187927"
+            e164={whatsappE164}
             label="Hablar con Adaluz"
             message={whatsappMessage}
             className="mt-10 inline-flex border-b border-ochre pb-1 text-sm font-semibold tracking-[0.14em] uppercase"

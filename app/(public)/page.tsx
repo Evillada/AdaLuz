@@ -5,85 +5,121 @@ import { CraftSection } from "@/components/home/CraftSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { LightInLifeSection } from "@/components/home/LightInLifeSection";
 import { TrustSection } from "@/components/home/TrustSection";
+import { listPublishedCollections } from "@/lib/data/collections";
+import { getSection } from "@/lib/data/sections";
+import { getSiteSettings } from "@/lib/data/settings";
+import { listPublishedTestimonials } from "@/lib/data/testimonials";
 
-const whatsappE164 = "573113187927";
+export const revalidate = 60;
 
-export default function Home() {
+export default async function Home() {
+  const [
+    settings,
+    hero,
+    value,
+    collectionsSection,
+    craft,
+    gift,
+    trust,
+    closing,
+    collections,
+    testimonials,
+  ] = await Promise.all([
+    getSiteSettings(),
+    getSection("home.hero"),
+    getSection("home.value"),
+    getSection("home.collections"),
+    getSection("home.craft"),
+    getSection("home.gift"),
+    getSection("home.trust"),
+    getSection("home.closing"),
+    listPublishedCollections(),
+    listPublishedTestimonials(),
+  ]);
+
   return (
     <>
       <HeroSection
-        title="La luz que acompaña tu vida"
-        body="Creamos velas para convertir lo cotidiano en ritual y guardar en la memoria aquello que merece permanecer."
+        title={hero?.title ?? "La luz que acompaña tu vida"}
+        body={
+          hero?.body ??
+          "Creamos velas para convertir lo cotidiano en ritual y guardar en la memoria aquello que merece permanecer."
+        }
+        imageUrl={hero?.imageUrl ?? undefined}
         cta={{
-          e164: whatsappE164,
-          label: "Encuentra tu luz",
+          e164: settings.whatsappE164,
+          label: hero?.ctaLabel ?? "Encuentra tu luz",
           message: "Hola Adaluz, quiero encontrar una vela para mi ritual.",
         }}
       />
       <LightInLifeSection
         eyebrow="La luz en la vida"
-        title="Una llama cambia la forma de habitar el tiempo"
-        body="Encender una vela puede abrir una pausa, acompañar una conversación o darle presencia a un momento sencillo. Adaluz nace para esos instantes."
+        title={value?.title ?? "Una llama cambia la forma de habitar el tiempo"}
+        body={
+          value?.body ??
+          "Encender una vela puede abrir una pausa, acompañar una conversación o darle presencia a un momento sencillo. Adaluz nace para esos instantes."
+        }
+        imageUrl={value?.imageUrl ?? undefined}
       />
       <CollectionsTeaserSection
         eyebrow="Colecciones"
-        title="Aromas con una historia propia"
-        body="Cada colección interpreta una manera de sentir la luz: serena, cercana o celebratoria."
-        items={[
-          {
-            title: "Origen",
-            body: "Notas cálidas para volver al centro y hacer espacio a la calma.",
-            href: "/colecciones/origen",
-          },
-          {
-            title: "Encuentro",
-            body: "Una luz generosa para mesas compartidas y conversaciones largas.",
-            href: "/colecciones/encuentro",
-          },
-          {
-            title: "Renacer",
-            body: "Aromas luminosos para marcar comienzos y abrir nuevas etapas.",
-            href: "/colecciones/renacer",
-          },
-        ]}
+        title={collectionsSection?.title ?? "Aromas con una historia propia"}
+        body={
+          collectionsSection?.body ??
+          "Cada colección interpreta una manera de sentir la luz: serena, cercana o celebratoria."
+        }
+        items={collections.map((collection) => ({
+          title: collection.name,
+          body: collection.tagline,
+          imageUrl: collection.coverImageUrl ?? undefined,
+          href: `/colecciones/${collection.slug}`,
+        }))}
         cta={{ label: "Ver todas las colecciones", href: "/colecciones" }}
       />
       <CraftSection
         eyebrow="Oficio"
-        title="Hechas despacio, para encenderse sin prisa"
-        body="Trabajamos cada vela en pequeños lotes, cuidando la mezcla, el aroma y el acabado. La mano detrás del objeto también hace parte de su luz."
+        title={craft?.title ?? "Hechas despacio, para encenderse sin prisa"}
+        body={
+          craft?.body ??
+          "Trabajamos cada vela en pequeños lotes, cuidando la mezcla, el aroma y el acabado. La mano detrás del objeto también hace parte de su luz."
+        }
+        imageUrl={craft?.imageUrl ?? undefined}
       />
       <CorporateGiftsSection
         eyebrow="Detalles con intención"
-        title="Para quienes regalan luz"
-        body="Creamos obsequios para equipos, clientes y celebraciones que quieren decir algo verdadero: gracias, bienvenidos, seguimos juntos."
-        cta={{ label: "Conoce las opciones para empresas", href: "/para-empresas" }}
+        title={gift?.title ?? "Para quienes regalan luz"}
+        body={
+          gift?.body ??
+          "Creamos obsequios para equipos, clientes y celebraciones que quieren decir algo verdadero: gracias, bienvenidos, seguimos juntos."
+        }
+        imageUrl={gift?.imageUrl ?? undefined}
+        cta={{
+          label: gift?.ctaLabel ?? "Conoce las opciones para empresas",
+          href: "/para-empresas",
+        }}
       />
       <TrustSection
         eyebrow="Confianza"
-        title="Luz que permanece en la memoria"
-        body="Historias de personas que eligieron Adaluz para acompañar momentos importantes."
-        testimonials={[
-          {
-            quote: "La encendimos en nuestra nueva casa y el espacio se sintió nuestro.",
-            attribution: "Mariana · Medellín",
-          },
-          {
-            quote: "El regalo habló de cuidado desde antes de abrirlo.",
-            attribution: "Laura · Bogotá",
-          },
-          {
-            quote: "Adaluz convirtió una cena sencilla en un recuerdo.",
-            attribution: "Camilo · Cali",
-          },
-        ]}
+        title={trust?.title ?? "Luz que permanece en la memoria"}
+        body={
+          trust?.body ??
+          "Historias de personas que eligieron Adaluz para acompañar momentos importantes."
+        }
+        testimonials={testimonials.map((testimonial) => ({
+          quote: testimonial.quote,
+          attribution: testimonial.author,
+        }))}
       />
       <ClosingCtaSection
-        title="Hagamos luz juntos"
-        body="Cuéntanos qué momento quieres acompañar y te ayudaremos a encontrar la vela indicada."
+        title={closing?.title ?? "Hagamos luz juntos"}
+        body={
+          closing?.body ??
+          "Cuéntanos qué momento quieres acompañar y te ayudaremos a encontrar la vela indicada."
+        }
+        imageUrl={closing?.imageUrl ?? undefined}
         cta={{
-          e164: whatsappE164,
-          label: "Hablar con Adaluz",
+          e164: settings.whatsappE164,
+          label: closing?.ctaLabel ?? "Hablar con Adaluz",
           message: "Hola Adaluz, quiero elegir una vela.",
         }}
       />

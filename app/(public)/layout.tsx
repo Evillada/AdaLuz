@@ -1,22 +1,24 @@
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { getSiteSettings } from "@/lib/data/settings";
 
-const whatsappE164 = "573113187927";
-const instagramUrl = "https://instagram.com/velasadaluz";
+export const revalidate = 60;
 
-export default function PublicLayout({ children }: LayoutProps<"/">) {
+export default async function PublicLayout({ children }: LayoutProps<"/">) {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <SiteHeader
-        whatsappE164={whatsappE164}
-        instagramUrl={instagramUrl}
+        whatsappE164={settings.whatsappE164}
+        instagramUrl={settings.instagramUrl}
       />
       <main className="flex flex-1 flex-col">{children}</main>
       <SiteFooter
-        whatsappE164={whatsappE164}
-        phoneDisplay="3113187927"
-        instagramHandle="@velasadaluz"
-        instagramUrl={instagramUrl}
+        whatsappE164={settings.whatsappE164}
+        phoneDisplay={settings.phone}
+        instagramHandle={settings.instagramHandle}
+        instagramUrl={settings.instagramUrl}
       />
     </>
   );

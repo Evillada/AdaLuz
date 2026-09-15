@@ -48,7 +48,7 @@ export default async function ProductPage(
   }
 
   return (
-    <section className="px-6 py-24 sm:py-36">
+    <section className="band-cream section-blend px-6 py-24 sm:py-36">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -72,7 +72,10 @@ export default async function ProductPage(
         }}
       />
       <div className="mx-auto grid w-full max-w-6xl gap-14 md:grid-cols-2 md:items-center">
-        <CatalogImage imageUrl={product.imageUrl} className="aspect-square" />
+        <CatalogImage
+          imageUrl={product.imageUrl}
+          className="aspect-[5/6] w-full max-w-md md:max-w-none"
+        />
         <div>
           <Link
             href={`/colecciones/${product.collection.slug}`}

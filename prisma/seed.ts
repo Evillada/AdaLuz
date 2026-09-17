@@ -34,6 +34,7 @@ async function main() {
       seoTitle: "Adaluz | Velas artesanales para momentos con intención",
       seoDescription:
         "Velas artesanales creadas en Colombia para acompañar rituales, regalos y momentos que merecen permanecer.",
+      ogImage: "/reference/og.jpg",
     },
     create: {
       id: "default",
@@ -44,6 +45,7 @@ async function main() {
       seoTitle: "Adaluz | Velas artesanales para momentos con intención",
       seoDescription:
         "Velas artesanales creadas en Colombia para acompañar rituales, regalos y momentos que merecen permanecer.",
+      ogImage: "/reference/og.jpg",
     },
   });
 
@@ -98,29 +100,59 @@ async function main() {
     });
   }
 
-  const collectionName = "Origen";
-  const collection = await prisma.collection.upsert({
-    where: { slug: slugify(collectionName) },
-    update: {
-      name: collectionName,
+  const collections = [
+    {
+      name: "Origen",
       tagline: "Volver al centro",
       description:
         "Notas cálidas para hacer espacio a la calma y convertir cada pausa en un ritual.",
       coverImageUrl: "/reference/collection-origen.jpg",
-      published: true,
       sortOrder: 0,
     },
-    create: {
-      slug: slugify(collectionName),
-      name: collectionName,
-      tagline: "Volver al centro",
+    {
+      name: "Calma",
+      tagline: "Respirar despacio",
       description:
-        "Notas cálidas para hacer espacio a la calma y convertir cada pausa en un ritual.",
-      coverImageUrl: "/reference/collection-origen.jpg",
-      published: true,
-      sortOrder: 0,
+        "Aromas suaves para acompañar pausas, lecturas y mañanas sin prisa.",
+      coverImageUrl: "/reference/collection-calma.jpg",
+      sortOrder: 1,
     },
-  });
+    {
+      name: "Ritual",
+      tagline: "Encender con intención",
+      description:
+        "Velas para cerrar el día, marcar un encuentro o crear un momento propio.",
+      coverImageUrl: "/reference/collection-ritual.jpg",
+      sortOrder: 2,
+    },
+  ];
+
+  const seededCollections = [];
+  for (const item of collections) {
+    const collection = await prisma.collection.upsert({
+      where: { slug: slugify(item.name) },
+      update: {
+        name: item.name,
+        tagline: item.tagline,
+        description: item.description,
+        coverImageUrl: item.coverImageUrl,
+        published: true,
+        sortOrder: item.sortOrder,
+      },
+      create: {
+        slug: slugify(item.name),
+        name: item.name,
+        tagline: item.tagline,
+        description: item.description,
+        coverImageUrl: item.coverImageUrl,
+        published: true,
+        sortOrder: item.sortOrder,
+      },
+    });
+    seededCollections.push(collection);
+  }
+
+  const origen = seededCollections[0]!;
 
   const products = [
     {
@@ -141,7 +173,7 @@ async function main() {
     await prisma.product.upsert({
       where: { slug: slugify(product.name) },
       update: {
-        collectionId: collection.id,
+        collectionId: origen.id,
         name: product.name,
         description: product.description,
         imageUrl: product.imageUrl,
@@ -149,7 +181,7 @@ async function main() {
         sortOrder: product.sortOrder,
       },
       create: {
-        collectionId: collection.id,
+        collectionId: origen.id,
         slug: slugify(product.name),
         name: product.name,
         description: product.description,

@@ -2,20 +2,17 @@ import type { Metadata } from "next";
 
 import { ClosingCtaSection } from "@/components/home/ClosingCtaSection";
 import { CollectionsTeaserSection } from "@/components/home/CollectionsTeaserSection";
-import { CorporateGiftsSection } from "@/components/home/CorporateGiftsSection";
-import { CraftSection } from "@/components/home/CraftSection";
-import { DailyDesignSection } from "@/components/home/DailyDesignSection";
+import { EssenceSection } from "@/components/home/EssenceSection";
 import { HeroSection } from "@/components/home/HeroSection";
-import { LightInLifeSection } from "@/components/home/LightInLifeSection";
+import { StorySection } from "@/components/home/StorySection";
 import { TrustSection } from "@/components/home/TrustSection";
 import { PageTransition } from "@/components/motion/PageTransition";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { candleDesigns, getDesignOfTheDayIndex } from "@/lib/candle-designs";
 import { listPublishedCollections } from "@/lib/data/collections";
 import { getSection } from "@/lib/data/sections";
 import { getSiteSettings } from "@/lib/data/settings";
-import { createPublicMetadata, getSiteUrl } from "@/lib/seo";
 import { listPublishedTestimonials } from "@/lib/data/testimonials";
+import { createPublicMetadata, getSiteUrl } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -82,24 +79,24 @@ export default async function Home() {
           "Creamos velas para convertir lo cotidiano en ritual y guardar en la memoria aquello que merece permanecer."
         }
         imageUrl={hero?.imageUrl ?? undefined}
-        cta={{
+        primaryCta={{ label: "Ver las velas", href: "/colecciones" }}
+        whatsapp={{
           e164: settings.whatsappE164,
-          label: hero?.ctaLabel ?? "Encuentra tu luz",
+          label: hero?.ctaLabel ?? "Escríbenos",
           message: "Hola Adaluz, quiero encontrar una vela para mi ritual.",
         }}
       />
-      <LightInLifeSection
-        eyebrow="La luz en la vida"
-        title={value?.title ?? "Una llama cambia la forma de habitar el tiempo"}
+      <EssenceSection
+        eyebrow="Nuestra esencia"
+        title={value?.title ?? "Amor hecho luz"}
         body={
           value?.body ??
-          "Encender una vela puede abrir una pausa, acompañar una conversación o darle presencia a un momento sencillo. Adaluz nace para esos instantes."
+          "Cada vela nace de un gesto de cariño: hacia ti, hacia tu casa o hacia alguien que quieres."
         }
-        imageUrl={value?.imageUrl ?? undefined}
       />
       <CollectionsTeaserSection
         eyebrow="Colecciones"
-        title={collectionsSection?.title ?? "Aromas con una historia propia"}
+        title={collectionsSection?.title ?? "Elige tu luz"}
         body={
           collectionsSection?.body ??
           "Cada colección interpreta una manera de sentir la luz: serena, cercana o celebratoria."
@@ -112,7 +109,7 @@ export default async function Home() {
         }))}
         cta={{ label: "Ver todas las colecciones", href: "/colecciones" }}
       />
-      <CraftSection
+      <StorySection
         eyebrow="Oficio"
         title={craft?.title ?? "Hechas despacio, para encenderse sin prisa"}
         body={
@@ -121,13 +118,9 @@ export default async function Home() {
         }
         imageUrl={craft?.imageUrl ?? undefined}
       />
-      <DailyDesignSection
-        designs={candleDesigns}
-        todayIndex={getDesignOfTheDayIndex(new Date())}
-        whatsappE164={settings.whatsappE164}
-      />
-      <CorporateGiftsSection
-        eyebrow="Detalles con intención"
+      <StorySection
+        reverse
+        eyebrow="Regalos y empresas"
         title={gift?.title ?? "Para quienes regalan luz"}
         body={
           gift?.body ??
@@ -157,10 +150,9 @@ export default async function Home() {
           closing?.body ??
           "Cuéntanos qué momento quieres acompañar y te ayudaremos a encontrar la vela indicada."
         }
-        imageUrl={closing?.imageUrl ?? undefined}
         cta={{
           e164: settings.whatsappE164,
-          label: closing?.ctaLabel ?? "Hablar con Adaluz",
+          label: closing?.ctaLabel ?? "Escríbenos",
           message: "Hola Adaluz, quiero elegir una vela.",
         }}
       />

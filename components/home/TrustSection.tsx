@@ -1,54 +1,40 @@
 import { Reveal } from "@/components/motion/Reveal";
-
-import type { EditorialSectionProps } from "./types";
+import { bodyClass, eyebrowClass } from "@/components/ui/styles";
 
 export type Testimonial = {
   quote: string;
   attribution: string;
 };
 
-type TrustSectionProps = EditorialSectionProps & {
+type TrustSectionProps = {
+  eyebrow?: string;
+  title: string;
+  body: string;
   testimonials: Testimonial[];
 };
 
-export function TrustSection({
-  decoration,
-  eyebrow,
-  title,
-  body,
-  testimonials,
-}: TrustSectionProps) {
+export function TrustSection({ eyebrow, title, body, testimonials }: TrustSectionProps) {
+  if (testimonials.length === 0) {
+    return null;
+  }
+
   return (
-    <section className="band-light section-blend relative px-6 py-28 sm:py-40">
-      {decoration}
-      <Reveal className="mx-auto max-w-6xl">
-        <div className="max-w-2xl">
-          {eyebrow && (
-            <p className="text-xs font-semibold tracking-[0.28em] text-ochre uppercase">
-              {eyebrow}
-            </p>
-          )}
-          <div className="gold-rule mt-6" />
-          <h2 className="mt-7 font-serif text-4xl leading-[1.05] tracking-[-0.02em] text-bronze sm:text-6xl">
-            {title}
-          </h2>
-          <p className="mt-7 text-lg leading-9 text-[color:var(--ink-soft)]">
-            {body}
-          </p>
-        </div>
-        <div className="mt-20 grid gap-12 md:grid-cols-3 md:gap-10">
+    <section className="px-6 py-20 text-center sm:py-28">
+      <Reveal className="mx-auto max-w-2xl">
+        {eyebrow && <p className={eyebrowClass}>{eyebrow}</p>}
+        <h2 className="mt-4 font-serif text-3xl leading-[1.1] text-ink sm:text-5xl">{title}</h2>
+        <p className={`mx-auto mt-5 max-w-xl ${bodyClass}`}>{body}</p>
+        <div className="mt-12">
           {testimonials.map((testimonial, index) => (
-            <blockquote
-              key={testimonial.attribution}
-              className={`border-l border-ochre/35 pl-6 ${index === 1 ? "md:mt-10" : ""}`}
-            >
-              <p className="font-serif text-2xl leading-snug text-bronze sm:text-[1.7rem]">
+            <figure key={`${testimonial.attribution}-${index}`}>
+              {index > 0 && <div aria-hidden="true" className="gold-rule mx-auto my-10" />}
+              <blockquote className="font-serif text-2xl leading-snug text-ink italic sm:text-3xl">
                 “{testimonial.quote}”
-              </p>
-              <footer className="mt-6 text-sm tracking-[0.08em] text-bronze/55">
+              </blockquote>
+              <figcaption className="mt-4 text-sm tracking-[0.08em] text-muted">
                 {testimonial.attribution}
-              </footer>
-            </blockquote>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </Reveal>

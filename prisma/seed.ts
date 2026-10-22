@@ -60,8 +60,8 @@ async function main() {
     },
     {
       key: "home.value",
-      title: "Una llama cambia la forma de habitar el tiempo",
-      body: "Encender una vela puede abrir una pausa, acompañar una conversación o darle presencia a un momento sencillo. Adaluz nace para esos instantes.",
+      title: "Amor hecho luz",
+      body: "Cada vela nace de un gesto de cariño: hacia ti, hacia tu casa o hacia alguien que quieres.",
       imageUrl: "/reference/value.jpg",
       ctaLabel: null,
       sortOrder: 1,

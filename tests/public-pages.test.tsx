@@ -132,16 +132,37 @@ beforeEach(() => {
 });
 
 describe("Home", () => {
-  it("renders sections, collections, testimonials, and settings from data access", async () => {
+  it("renders the essence-led home from data access", async () => {
     const html = renderToStaticMarkup(await Home());
 
     expect(html).toContain('data-stage="hero-media"');
-    expect(html.match(/<section/g)).toHaveLength(8);
-    expect(html).toContain("Diseño del día");
+    expect(html.match(/<section/g)).toHaveLength(7);
+    expect(html).toContain("Velas artesanales aromáticas");
     expect(html).toContain("Hero desde Postgres");
+    expect(html).toContain('href="/colecciones"');
+    for (const pillar of ["Calma", "Amor", "Hogar", "Hecho a mano"]) {
+      expect(html).toContain(pillar);
+    }
     expect(html).toContain("Origen");
     expect(html).toContain("Testimonio desde Postgres");
     expect(html).toContain('href="https://wa.me/573113187927');
+    expect(html).not.toContain("Diseño del día");
+  });
+
+  it("hides the experience section when there are no testimonials", async () => {
+    data.listPublishedTestimonials.mockResolvedValue([]);
+
+    const html = renderToStaticMarkup(await Home());
+
+    expect(html.match(/<section/g)).toHaveLength(6);
+    expect(html).not.toContain("Experiencia Adaluz");
+  });
+
+  it("keeps the hero oval filled when the hero has no image", async () => {
+    const html = renderToStaticMarkup(await Home());
+    const hero = html.slice(html.indexOf('data-stage="hero-media"'), html.indexOf("</section>"));
+
+    expect(hero).toContain('data-placeholder="cream"');
   });
 });
 

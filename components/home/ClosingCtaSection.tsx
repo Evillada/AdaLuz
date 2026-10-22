@@ -1,14 +1,11 @@
-import type { ReactNode } from "react";
-
-import { AtmosphereMedia } from "@/components/brand/AtmosphereMedia";
+import { BrandWatermark } from "@/components/brand/BrandWatermark";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 import { Reveal } from "@/components/motion/Reveal";
+import { bodyClass, primaryButtonClass } from "@/components/ui/styles";
 
 type ClosingCtaSectionProps = {
-  decoration?: ReactNode;
   title: string;
   body: string;
-  imageUrl?: string;
   cta: {
     label: string;
     e164: string;
@@ -16,43 +13,21 @@ type ClosingCtaSectionProps = {
   };
 };
 
-export function ClosingCtaSection({
-  decoration,
-  title,
-  body,
-  imageUrl,
-  cta,
-}: ClosingCtaSectionProps) {
+export function ClosingCtaSection({ title, body, cta }: ClosingCtaSectionProps) {
   return (
-    <section className="band-gold section-blend relative isolate overflow-hidden px-6 py-28 text-center sm:py-40">
-      {decoration}
-      <div className="absolute inset-0 -z-20 opacity-25">
-        <AtmosphereMedia
-          imageUrl={imageUrl}
-          kenBurns
-          tone="warm"
-          shape="plain"
-          className="absolute inset-0 h-full w-full rounded-none"
-        />
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-cream/85 via-champagne/75 to-honey/60"
-      />
-      <Reveal className="mx-auto max-w-3xl">
-        <div className="mx-auto gold-rule opacity-90" />
-        <h2 className="mt-8 font-serif text-5xl leading-[0.95] tracking-[-0.02em] text-bronze sm:text-7xl">
-          {title}
-        </h2>
-        <p className="mx-auto mt-8 max-w-xl text-lg leading-9 text-[color:var(--ink-soft)]">
-          {body}
-        </p>
-        <WhatsAppLink
-          e164={cta.e164}
-          message={cta.message}
-          label={cta.label}
-          className="mt-12 inline-flex border-b border-ochre pb-1.5 text-sm font-semibold tracking-[0.18em] text-ochre uppercase transition-colors hover:text-bronze"
-        />
+    <section className="px-5 py-16 sm:py-24">
+      <Reveal className="relative isolate mx-auto max-w-3xl overflow-hidden rounded-[50%/18%] bg-surface px-8 py-16 text-center sm:rounded-[50%/42%] sm:px-16 sm:py-24">
+        <BrandWatermark className="top-6 left-1/2 w-32 -translate-x-1/2 sm:w-44" />
+        <div className="relative">
+          <h2 className="font-serif text-3xl leading-[1.1] text-ink sm:text-5xl">{title}</h2>
+          <p className={`mx-auto mt-5 max-w-md ${bodyClass}`}>{body}</p>
+          <WhatsAppLink
+            e164={cta.e164}
+            message={cta.message}
+            label={cta.label}
+            className={`mt-8 ${primaryButtonClass}`}
+          />
+        </div>
       </Reveal>
     </section>
   );

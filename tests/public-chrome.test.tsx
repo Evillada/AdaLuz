@@ -53,6 +53,8 @@ describe("SiteHeader", () => {
     expect(html).toContain('href="/para-empresas"');
     expect(html).toContain('href="/contacto"');
     expect(html).toContain('href="https://wa.me/573113187927"');
+    expect(html).toContain('aria-label="Cambiar entre modo claro y oscuro"');
+    expect(html).toContain('aria-controls="mobile-menu"');
   });
 });
 

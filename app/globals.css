@@ -120,39 +120,58 @@ body {
   width: var(--glow-size);
   height: var(--glow-size);
   border-radius: 9999px;
+  margin: calc(var(--glow-size) / -2) 0 0 calc(var(--glow-size) / -2);
   background: radial-gradient(
     circle,
-    rgba(232, 176, 92, 0.2) 0%,
-    rgba(214, 150, 70, 0.08) 38%,
+    rgba(236, 180, 96, 0.24) 0%,
+    rgba(214, 150, 70, 0.09) 38%,
     transparent 68%
   );
-  transform: translate(-50%, -50%);
-  animation: candle-flicker 8s ease-in-out infinite;
-  will-change: opacity, transform;
+  animation-name: candle-drift, candle-flicker;
+  animation-duration: 28s, 8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: translate, scale, opacity;
+}
+
+@keyframes candle-drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  33% {
+    translate: var(--dx1) var(--dy1);
+  }
+  66% {
+    translate: var(--dx2) var(--dy2);
+  }
 }
 
 @keyframes candle-flicker {
   0%,
   100% {
-    opacity: 0.55;
-    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+    scale: 1;
   }
-  18% {
-    opacity: 0.85;
+  15% {
+    opacity: 0.9;
+    scale: 1.06;
   }
-  34% {
+  30% {
     opacity: 0.6;
-    transform: translate(-50%, -51%) scale(1.04);
+    scale: 0.96;
   }
-  52% {
-    opacity: 0.95;
+  48% {
+    opacity: 1;
+    scale: 1.08;
   }
-  70% {
-    opacity: 0.65;
-    transform: translate(-50%, -49%) scale(0.98);
+  66% {
+    opacity: 0.55;
+    scale: 0.94;
   }
-  86% {
-    opacity: 0.8;
+  84% {
+    opacity: 0.85;
+    scale: 1.03;
   }
 }
 

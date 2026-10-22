@@ -5,10 +5,17 @@ import { notFound } from "next/navigation";
 import { CatalogEmptyState } from "@/components/catalog/CatalogEmptyState";
 import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { PageTransition } from "@/components/motion/PageTransition";
-import { bodyClass, eyebrowClass, textLinkClass } from "@/components/ui/styles";
+import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
+import {
+  bodyClass,
+  eyebrowClass,
+  primaryButtonClass,
+  textLinkClass,
+} from "@/components/ui/styles";
 import { getPublishedCollectionBySlug } from "@/lib/data/collections";
 import { getSiteSettings } from "@/lib/data/settings";
-import { createPublicMetadata } from "@/lib/seo";
+import { absoluteUrl, createPublicMetadata } from "@/lib/seo";
+import { productInquiryMessage } from "@/lib/whatsapp";
 
 export const revalidate = 60;
 
@@ -70,16 +77,30 @@ export default async function CollectionPage(
             ) : (
               <div className="grid gap-14 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
                 {collection.products.map((product) => (
-                  <article key={product.id} className="group">
-                    <CatalogImage
-                      imageUrl={product.imageUrl}
-                      className="mx-auto aspect-[4/5] w-[min(70vw,18rem)] transition-transform duration-700 group-hover:scale-[1.02]"
-                    />
-                    <h2 className="mt-8 font-serif text-3xl text-ink">{product.name}</h2>
-                    <p className="mx-auto mt-3 max-w-sm leading-7 text-ink-soft">{product.description}</p>
-                    <Link href={`/productos/${product.slug}`} className={`mt-5 ${textLinkClass}`}>
-                      Conocer
+                  <article key={product.id}>
+                    <Link href={`/productos/${product.slug}`} className="group block">
+                      <CatalogImage
+                        imageUrl={product.imageUrl}
+                        className="mx-auto aspect-[4/5] w-[min(70vw,18rem)] transition-transform duration-700 group-hover:scale-[1.02]"
+                      />
+                      <h2 className="mt-8 font-serif text-3xl text-ink">{product.name}</h2>
                     </Link>
+                    <p className="mx-auto mt-3 max-w-sm leading-7 text-ink-soft">{product.description}</p>
+                    <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
+                      <WhatsAppLink
+                        e164={settings.whatsappE164}
+                        label="Consultar disponibilidad"
+                        message={productInquiryMessage(
+                          product.name,
+                          collection.name,
+                          absoluteUrl(`/productos/${product.slug}`),
+                        )}
+                        className={primaryButtonClass}
+                      />
+                      <Link href={`/productos/${product.slug}`} className={textLinkClass}>
+                        Ver detalle
+                      </Link>
+                    </div>
                   </article>
                 ))}
               </div>

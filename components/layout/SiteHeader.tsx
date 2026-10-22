@@ -4,7 +4,7 @@ import { Logo } from "@/components/brand/Logo";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { navigation } from "@/components/layout/navigation";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
+import { PageWhatsAppLink } from "@/components/layout/PageWhatsAppLink";
 
 type SiteHeaderProps = {
   whatsappE164: string;
@@ -46,11 +46,12 @@ export function SiteHeader({ whatsappE164, instagramUrl }: SiteHeaderProps) {
           >
             Instagram
           </a>
-          <WhatsAppLink
+          <PageWhatsAppLink
             e164={whatsappE164}
-            label="WhatsApp"
             className="border-b border-gold-line pb-0.5 text-ink transition-colors hover:text-gold-ink"
-          />
+          >
+            WhatsApp
+          </PageWhatsAppLink>
           <ThemeToggle />
         </div>
 

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { navigation } from "@/components/layout/navigation";
-import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
+import { PageWhatsAppLink } from "@/components/layout/PageWhatsAppLink";
 
 type MobileMenuProps = {
   whatsappE164: string;
@@ -69,11 +69,12 @@ export function MobileMenu({ whatsappE164, instagramUrl }: MobileMenuProps) {
             ))}
           </nav>
           <div className="mt-6 flex items-center gap-6 text-sm">
-            <WhatsAppLink
+            <PageWhatsAppLink
               e164={whatsappE164}
-              label="WhatsApp"
               className="border-b border-gold-line pb-0.5 text-ink"
-            />
+            >
+              WhatsApp
+            </PageWhatsAppLink>
             <a
               href={instagramUrl}
               target="_blank"

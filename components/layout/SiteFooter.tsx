@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Logo } from "@/components/brand/Logo";
-import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
+import { PageWhatsAppLink } from "@/components/layout/PageWhatsAppLink";
 
 type SiteFooterProps = {
   whatsappE164: string;
@@ -26,11 +26,9 @@ export function SiteFooter({
           Un toque de luz y de amor en cada rincón de tu casa.
         </p>
         <div className="flex flex-col gap-3 text-sm tracking-wide text-ink-soft">
-          <WhatsAppLink
-            e164={whatsappE164}
-            label={`WhatsApp · ${phoneDisplay}`}
-            className="transition-colors hover:text-gold-ink"
-          />
+          <PageWhatsAppLink e164={whatsappE164} className="transition-colors hover:text-gold-ink">
+            {`WhatsApp · ${phoneDisplay}`}
+          </PageWhatsAppLink>
           <a
             href={instagramUrl}
             target="_blank"

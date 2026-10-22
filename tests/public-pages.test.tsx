@@ -213,6 +213,10 @@ describe("Public catalog", () => {
     expect(html).toContain("Luz de Ámbar");
     expect(html).toContain('data-placeholder="cream"');
     expect(html).toContain('href="/productos/luz-de-ambar"');
+    expect(html).toContain("Consultar disponibilidad");
+    expect(html).toContain(
+      encodeURIComponent("disponibilidad de la vela Luz de Ámbar de la colección Origen."),
+    );
   });
 
   it("404s for a missing or unpublished collection", async () => {
@@ -249,6 +253,12 @@ describe("Public catalog", () => {
     expect(html).toContain("Luz de Ámbar");
     expect(html).toContain("Origen");
     expect(html).toContain('data-placeholder="cream"');
+    expect(html).toContain(
+      encodeURIComponent(
+        "disponibilidad de la vela Luz de Ámbar de la colección Origen. http",
+      ),
+    );
+    expect(html).toContain(encodeURIComponent("/productos/luz-de-ambar"));
   });
 });
 

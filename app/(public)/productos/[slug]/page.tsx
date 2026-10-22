@@ -6,11 +6,11 @@ import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTransition } from "@/components/motion/PageTransition";
-import { bodyClass, eyebrowClass, primaryButtonClass } from "@/components/ui/styles";
+import { bodyClass, eyebrowClass, primaryButtonClass, textLinkClass } from "@/components/ui/styles";
 import { getAvailableProductBySlug } from "@/lib/data/products";
 import { getSiteSettings } from "@/lib/data/settings";
 import { absoluteUrl, createPublicMetadata } from "@/lib/seo";
-import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { buildWhatsAppUrl, productInquiryMessage } from "@/lib/whatsapp";
 
 export const revalidate = 60;
 
@@ -49,6 +49,12 @@ export default async function ProductPage(
     notFound();
   }
 
+  const inquiry = productInquiryMessage(
+    product.name,
+    product.collection.name,
+    absoluteUrl(`/productos/${product.slug}`),
+  );
+
   return (
     <PageTransition>
       <section className="px-6 py-20 sm:py-28">
@@ -67,10 +73,7 @@ export default async function ProductPage(
             category: product.collection.name,
             potentialAction: {
               "@type": "ContactAction",
-              target: buildWhatsAppUrl(
-                settings.whatsappE164,
-                `Hola Adaluz, quiero información sobre ${product.name}.`,
-              ),
+              target: buildWhatsAppUrl(settings.whatsappE164, inquiry),
             },
           }}
         />
@@ -88,12 +91,17 @@ export default async function ProductPage(
             </h1>
             <div className="gold-rule mx-auto mt-7 md:mx-0" />
             <p className={`mt-7 ${bodyClass}`}>{product.description}</p>
-            <WhatsAppLink
-              e164={settings.whatsappE164}
-              label="Consultar disponibilidad"
-              message={`Hola Adaluz, quiero información sobre ${product.name}.`}
-              className={`mt-10 ${primaryButtonClass}`}
-            />
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-5 md:justify-start">
+              <WhatsAppLink
+                e164={settings.whatsappE164}
+                label="Consultar disponibilidad"
+                message={inquiry}
+                className={primaryButtonClass}
+              />
+              <Link href={`/colecciones/${product.collection.slug}`} className={textLinkClass}>
+                Más velas de {product.collection.name}
+              </Link>
+            </div>
           </div>
         </div>
       </section>

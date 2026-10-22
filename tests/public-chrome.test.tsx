@@ -52,7 +52,7 @@ describe("SiteHeader", () => {
     expect(html).toContain('href="/nosotros"');
     expect(html).toContain('href="/para-empresas"');
     expect(html).toContain('href="/contacto"');
-    expect(html).toContain('href="https://wa.me/573113187927"');
+    expect(html).toContain('href="https://wa.me/573113187927?text=Hola%20Adaluz%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n."');
     expect(html).toContain('aria-label="Cambiar entre modo claro y oscuro"');
     expect(html).toContain('aria-controls="mobile-menu"');
   });
@@ -72,7 +72,7 @@ describe("SiteFooter", () => {
     expect(html).toContain("WhatsApp · 3113187927");
     expect(html).toContain("@velasadaluz");
     expect(html).toContain('href="https://instagram.com/velasadaluz"');
-    expect(html).toContain('href="https://wa.me/573113187927"');
+    expect(html).toContain('href="https://wa.me/573113187927?text=Hola%20Adaluz%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n."');
   });
 });
 
@@ -89,7 +89,7 @@ describe("PublicLayout", () => {
     expect(html).toContain('href="/nosotros"');
     expect(html).toContain('href="/para-empresas"');
     expect(html).toContain('href="/contacto"');
-    expect(html).toContain('href="https://wa.me/573113187927"');
+    expect(html).toContain('href="https://wa.me/573113187927?text=Hola%20Adaluz%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n."');
     expect(html).toContain('href="https://instagram.com/velasadaluz"');
   });
 });

@@ -45,6 +45,17 @@ export function HeroSection({
             {slogan}
           </p>
         )}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-5">
+          <Link href={primaryCta.href} className={primaryButtonClass}>
+            {primaryCta.label}
+          </Link>
+          <WhatsAppLink
+            e164={whatsapp.e164}
+            message={whatsapp.message}
+            label={whatsapp.label}
+            className={textLinkClass}
+          />
+        </div>
       </Reveal>
 
       <OvalFrame
@@ -56,17 +67,6 @@ export function HeroSection({
 
       <Reveal className="mx-auto mt-12 max-w-xl" delay={0.15}>
         <p className={bodyClass}>{body}</p>
-        <div className="mt-8 flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
-          <Link href={primaryCta.href} className={primaryButtonClass}>
-            {primaryCta.label}
-          </Link>
-          <WhatsAppLink
-            e164={whatsapp.e164}
-            message={whatsapp.message}
-            label={whatsapp.label}
-            className={textLinkClass}
-          />
-        </div>
       </Reveal>
     </section>
   );

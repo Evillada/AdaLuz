@@ -82,7 +82,7 @@ export default async function Home() {
         primaryCta={{ label: "Ver las velas", href: "/colecciones" }}
         whatsapp={{
           e164: settings.whatsappE164,
-          label: hero?.ctaLabel ?? "Escríbenos",
+          label: "Escríbenos por WhatsApp",
           message: "Hola Adaluz, quiero encontrar una vela para mi ritual.",
         }}
       />

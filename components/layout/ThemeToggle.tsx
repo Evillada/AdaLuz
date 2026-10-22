@@ -6,14 +6,24 @@ import { applyTheme, readStoredTheme, resolveTheme, storeTheme } from "@/lib/the
 
 const DARK_QUERY = "(prefers-color-scheme: dark)";
 
+function darkQuery(): MediaQueryList | null {
+  try {
+    return matchMedia(DARK_QUERY);
+  } catch {
+    return null;
+  }
+}
+
 export function ThemeToggle({ className = "" }: { className?: string }) {
   // React's dev remount resets <html> attributes set by the inline script.
   useLayoutEffect(() => {
-    applyTheme(resolveTheme(readStoredTheme(), matchMedia(DARK_QUERY).matches));
+    applyTheme(resolveTheme(readStoredTheme(), darkQuery()?.matches ?? false));
   }, []);
 
   useEffect(() => {
-    const query = matchMedia(DARK_QUERY);
+    const query = darkQuery();
+    if (!query?.addEventListener) return;
+
     const followSystem = (event: MediaQueryListEvent) => {
       if (!readStoredTheme()) {
         applyTheme(event.matches ? "dark" : "light");

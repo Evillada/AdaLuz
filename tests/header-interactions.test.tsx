@@ -27,6 +27,9 @@ vi.mock("next/link", () => ({
   ),
 }));
 
+const navigation = vi.hoisted(() => ({ pathname: "/" }));
+vi.mock("next/navigation", () => ({ usePathname: () => navigation.pathname }));
+
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
@@ -56,6 +59,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
   document.documentElement.className = "";
   localStorage.clear();
+  navigation.pathname = "/";
 });
 
 describe("ThemeToggle", () => {
@@ -70,6 +74,20 @@ describe("ThemeToggle", () => {
     act(() => button.click());
     expect(document.documentElement.classList.contains("dark")).toBe(false);
     expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe("light");
+  });
+
+  it("still renders and toggles when matchMedia throws", () => {
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => {
+        throw new Error("unsupported");
+      }),
+    );
+
+    act(() => root.render(<ThemeToggle />));
+    act(() => container.querySelector("button")!.click());
+
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
   });
 });
 
@@ -109,5 +127,16 @@ describe("MobileMenu", () => {
     });
     expect(container.querySelector("#mobile-menu")).toBeNull();
     expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    expect(document.activeElement).toBe(toggle);
+  });
+
+  it("closes when the route changes another way", () => {
+    const toggle = renderMenu();
+    act(() => toggle.click());
+
+    navigation.pathname = "/colecciones";
+    renderMenu();
+
+    expect(container.querySelector("#mobile-menu")).toBeNull();
   });
 });

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import { navigation } from "@/components/layout/navigation";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
@@ -12,14 +13,21 @@ type MobileMenuProps = {
 };
 
 export function MobileMenu({ whatsappE164, instagramUrl }: MobileMenuProps) {
-  const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
+  const pathname = usePathname();
+  // The menu belongs to the page it was opened on, so any navigation closes it.
+  const [openOn, setOpenOn] = useState<string | null>(null);
+  const open = openOn !== null && openOn === pathname;
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const close = () => setOpenOn(null);
 
   useEffect(() => {
     if (!open) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpenOn(null);
+        toggleRef.current?.focus();
+      }
     };
 
     document.addEventListener("keydown", onKeyDown);
@@ -29,11 +37,12 @@ export function MobileMenu({ whatsappE164, instagramUrl }: MobileMenuProps) {
   return (
     <>
       <button
+        ref={toggleRef}
         type="button"
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Cerrar menú" : "Abrir menú"}
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => setOpenOn(open ? null : pathname)}
         className="flex h-10 w-10 items-center justify-center text-ink"
       >
         <span aria-hidden="true" className="relative block h-2.5 w-5">

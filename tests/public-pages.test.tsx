@@ -158,6 +158,15 @@ describe("Home", () => {
     expect(html).not.toContain("Experiencia Adaluz");
   });
 
+  it("skips the collections list when none are published", async () => {
+    data.listPublishedCollections.mockResolvedValue([]);
+
+    const html = renderToStaticMarkup(await Home());
+
+    expect(html).not.toContain("Descubrir →");
+    expect(html).toContain("Ver todas las colecciones");
+  });
+
   it("keeps the hero oval filled when the hero has no image", async () => {
     const html = renderToStaticMarkup(await Home());
     const hero = html.slice(html.indexOf('data-stage="hero-media"'), html.indexOf("</section>"));

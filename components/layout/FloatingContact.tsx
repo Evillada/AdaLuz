@@ -6,7 +6,7 @@ type FloatingContactProps = {
 };
 
 const buttonClass =
-  "group relative isolate flex h-14 w-14 items-center justify-center rounded-full shadow-[0_14px_30px_-12px_rgba(63,42,29,0.55)] ring-1 transition duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-[0_18px_36px_-12px_rgba(63,42,29,0.6)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ochre";
+  "group relative isolate flex h-14 w-14 items-center justify-center rounded-full shadow-[0_14px_30px_-12px_rgba(63,42,29,0.55)] ring-1 transition duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-[0_18px_36px_-12px_rgba(63,42,29,0.6)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-line";
 
 const instagramGradient =
   "bg-[radial-gradient(circle_at_30%_107%,#fdf497_0%,#fdf497_5%,#fd5949_45%,#d6249f_60%,#285aeb_90%)]";

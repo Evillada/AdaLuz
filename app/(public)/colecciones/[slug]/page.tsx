@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { CatalogEmptyState } from "@/components/catalog/CatalogEmptyState";
 import { CatalogImage } from "@/components/catalog/CatalogImage";
+import { PageTransition } from "@/components/motion/PageTransition";
 import { getPublishedCollectionBySlug } from "@/lib/data/collections";
 import { getSiteSettings } from "@/lib/data/settings";
 import { createPublicMetadata } from "@/lib/seo";
@@ -46,53 +47,55 @@ export default async function CollectionPage(
   }
 
   return (
-    <section className="band-light section-blend px-6 py-24 sm:py-36">
-      <div className="mx-auto w-full max-w-6xl">
-        <p className="text-xs font-semibold tracking-[0.24em] text-ochre uppercase">
-          Colección
-        </p>
-        <h1 className="mt-5 font-serif text-5xl leading-none text-ochre sm:text-7xl">
-          {collection.name}
-        </h1>
-        <p className="mt-5 font-serif text-2xl text-bronze/80">
-          {collection.tagline}
-        </p>
-        <p className="mt-7 max-w-2xl text-lg leading-8 text-bronze/75">
-          {collection.description}
-        </p>
+    <PageTransition>
+      <section className="band-light section-blend px-6 py-24 sm:py-36">
+        <div className="mx-auto w-full max-w-6xl">
+          <p className="text-xs font-semibold tracking-[0.24em] text-ochre uppercase">
+            Colección
+          </p>
+          <h1 className="mt-5 font-serif text-5xl leading-none text-ochre sm:text-7xl">
+            {collection.name}
+          </h1>
+          <p className="mt-5 font-serif text-2xl text-bronze/80">
+            {collection.tagline}
+          </p>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-bronze/75">
+            {collection.description}
+          </p>
 
-        <div className="mt-16">
-          {collection.products.length === 0 ? (
-            <CatalogEmptyState
-              whatsappE164={settings.whatsappE164}
-              message={`Hola Adaluz, quiero conocer la colección ${collection.name}.`}
-            />
-          ) : (
-            <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-              {collection.products.map((product) => (
-                <article key={product.id} className="group">
-                  <CatalogImage
-                    imageUrl={product.imageUrl}
-                    className="aspect-[5/6] transition-transform duration-700 group-hover:scale-[1.02]"
-                  />
-                  <h2 className="mt-7 font-serif text-3xl text-ochre">
-                    {product.name}
-                  </h2>
-                  <p className="mt-3 leading-7 text-bronze/75">
-                    {product.description}
-                  </p>
-                  <Link
-                    href={`/productos/${product.slug}`}
-                    className="mt-5 inline-flex border-b border-ochre pb-1 text-sm font-semibold tracking-[0.12em] uppercase"
-                  >
-                    Conocer
-                  </Link>
-                </article>
-              ))}
-            </div>
-          )}
+          <div className="mt-16">
+            {collection.products.length === 0 ? (
+              <CatalogEmptyState
+                whatsappE164={settings.whatsappE164}
+                message={`Hola Adaluz, quiero conocer la colección ${collection.name}.`}
+              />
+            ) : (
+              <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+                {collection.products.map((product) => (
+                  <article key={product.id} className="group">
+                    <CatalogImage
+                      imageUrl={product.imageUrl}
+                      className="aspect-[5/6] transition-transform duration-700 group-hover:scale-[1.02]"
+                    />
+                    <h2 className="mt-7 font-serif text-3xl text-ochre">
+                      {product.name}
+                    </h2>
+                    <p className="mt-3 leading-7 text-bronze/75">
+                      {product.description}
+                    </p>
+                    <Link
+                      href={`/productos/${product.slug}`}
+                      className="mt-5 inline-flex border-b border-ochre pb-1 text-sm font-semibold tracking-[0.12em] uppercase"
+                    >
+                      Conocer
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </PageTransition>
   );
 }

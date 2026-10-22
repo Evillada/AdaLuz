@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import type { EditorialSectionProps } from "./types";
 
 export function CorporateGiftsSection({
+  decoration,
   eyebrow,
   title,
   body,
@@ -13,6 +14,7 @@ export function CorporateGiftsSection({
 }: EditorialSectionProps) {
   return (
     <section className="band-gold section-blend relative isolate overflow-hidden px-6 py-28 text-bronze sm:py-40">
+      {decoration}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-cover bg-center opacity-15 mix-blend-soft-light"

@@ -6,6 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import type { EditorialSectionProps } from "./types";
 
 export function CraftSection({
+  decoration,
   eyebrow,
   title,
   body,
@@ -14,6 +15,7 @@ export function CraftSection({
 }: EditorialSectionProps) {
   return (
     <section className="band-light section-blend relative px-6 py-28 sm:py-40">
+      {decoration}
       <Reveal className="mx-auto grid max-w-6xl gap-14 md:grid-cols-2 md:items-center md:gap-16">
         <div className="md:order-1">
           {eyebrow && (

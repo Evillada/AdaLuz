@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/Logo";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
@@ -10,6 +14,8 @@ const navigation = [
   { href: "/contacto", label: "Contacto" },
 ] as const;
 
+const SCROLL_THRESHOLD = 24;
+
 type SiteHeaderProps = {
   whatsappE164: string;
   instagramUrl: string;
@@ -19,8 +25,28 @@ export function SiteHeader({
   whatsappE164,
   instagramUrl,
 }: SiteHeaderProps) {
+  const isHome = usePathname() === "/";
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  const glass = !isHome || scrolled;
+
   return (
-    <header className="sticky top-0 z-40 border-b border-ochre/15 bg-cream/70 backdrop-blur-md">
+    <header
+      data-glass={glass}
+      className={`${isHome ? "fixed inset-x-0" : "sticky"} top-0 z-40 transition-[background-color,backdrop-filter] duration-500 ease-out ${
+        glass
+          ? "bg-[rgba(36,22,13,0.78)] backdrop-blur-md"
+          : "bg-transparent"
+      }`}
+      style={{ viewTransitionName: "site-header" }}
+    >
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
         <Link href="/" aria-label="Adaluz, inicio" className="shrink-0">
           <Logo variant="symbol" className="w-11" />
@@ -34,7 +60,7 @@ export function SiteHeader({
             <Link
               key={item.href}
               href={item.href}
-              className="text-bronze/80 transition-colors hover:text-ochre"
+              className="text-cream/85 transition-colors hover:text-glow"
             >
               {item.label}
             </Link>
@@ -46,17 +72,23 @@ export function SiteHeader({
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden text-bronze/75 transition-colors hover:text-ochre md:inline"
+            className="hidden text-cream/80 transition-colors hover:text-glow md:inline"
           >
             Instagram
           </a>
           <WhatsAppLink
             e164={whatsappE164}
             label="WhatsApp"
-            className="border-b border-ochre/40 pb-0.5 text-bronze transition-colors hover:border-ochre hover:text-ochre"
+            className="border-b border-glow/60 pb-0.5 text-cream transition-colors hover:border-glow hover:text-glow"
           />
         </div>
       </div>
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-x-0 top-full h-16 bg-[linear-gradient(180deg,rgba(36,22,13,0.78)_0%,rgba(36,22,13,0.35)_40%,transparent_100%)] transition-opacity duration-500 ${
+          glass ? "opacity-100" : "opacity-0"
+        }`}
+      />
     </header>
   );
 }

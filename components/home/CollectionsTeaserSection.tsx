@@ -18,6 +18,7 @@ type CollectionsTeaserSectionProps = EditorialSectionProps & {
 };
 
 export function CollectionsTeaserSection({
+  decoration,
   eyebrow,
   title,
   body,
@@ -26,6 +27,7 @@ export function CollectionsTeaserSection({
 }: CollectionsTeaserSectionProps) {
   return (
     <section className="band-gold section-blend relative overflow-hidden px-6 py-28 sm:py-40">
+      {decoration}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-glow/40 blur-3xl"

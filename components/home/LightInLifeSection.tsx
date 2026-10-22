@@ -6,6 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import type { EditorialSectionProps } from "./types";
 
 export function LightInLifeSection({
+  decoration,
   eyebrow,
   title,
   body,
@@ -14,6 +15,7 @@ export function LightInLifeSection({
 }: EditorialSectionProps) {
   return (
     <section className="band-light section-blend relative px-6 py-28 sm:py-40">
+      {decoration}
       <Reveal className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <AtmosphereMedia
           imageUrl={imageUrl}

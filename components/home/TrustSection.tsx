@@ -12,6 +12,7 @@ type TrustSectionProps = EditorialSectionProps & {
 };
 
 export function TrustSection({
+  decoration,
   eyebrow,
   title,
   body,
@@ -19,6 +20,7 @@ export function TrustSection({
 }: TrustSectionProps) {
   return (
     <section className="band-light section-blend relative px-6 py-28 sm:py-40">
+      {decoration}
       <Reveal className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           {eyebrow && (

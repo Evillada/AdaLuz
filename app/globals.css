@@ -1,19 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #fffdf8;
-  --glow: #f3e4a8;
-  --ochre: #c4a035;
-  --bronze: #4a3426;
-  --gold-metal: #b8952e;
-  --ink-soft: color-mix(in srgb, var(--bronze) 70%, transparent);
-  --background: #ffffff;
+  --cream: #fff6dc;
+  --champagne: #f9df8e;
+  --honey: #f1c43f;
+  --glow: #ffd95a;
+  --ochre: #8a5a00;
+  --gold-metal: #d9a404;
+  --bronze: #3a2414;
+  --coffee: #5e3b1f;
+  --ink-soft: var(--coffee);
+  --background: #f6d16a;
   --foreground: var(--bronze);
   --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 }
 
 @theme inline {
   --color-cream: var(--cream);
+  --color-champagne: var(--champagne);
+  --color-honey: var(--honey);
+  --color-coffee: var(--coffee);
   --color-glow: var(--glow);
   --color-ochre: var(--ochre);
   --color-bronze: var(--bronze);
@@ -35,15 +41,22 @@ body {
   background:
     radial-gradient(
       1000px 560px at 15% -5%,
-      color-mix(in srgb, var(--glow) 38%, transparent),
+      color-mix(in srgb, var(--glow) 55%, transparent),
       transparent 62%
     ),
     radial-gradient(
       900px 520px at 90% 12%,
-      color-mix(in srgb, var(--gold-metal) 12%, transparent),
+      color-mix(in srgb, var(--gold-metal) 22%, transparent),
       transparent 58%
     ),
-    linear-gradient(180deg, #ffffff 0%, var(--cream) 55%, #ffffff 100%);
+    linear-gradient(
+      180deg,
+      var(--cream) 0%,
+      var(--champagne) 45%,
+      var(--background) 75%,
+      var(--cream) 100%
+    );
+  background-attachment: fixed;
 }
 
 body::before {
@@ -63,7 +76,7 @@ body::before {
   color: var(--bronze);
 }
 
-/* Unified light sections: white + soft gold only */
+/* Warm champagne sections with gold as the dominant tone, coffee as accent */
 .band-light {
   background: transparent;
   color: var(--bronze);
@@ -74,13 +87,13 @@ body::before {
   background:
     radial-gradient(
       80% 70% at 50% 40%,
-      color-mix(in srgb, var(--glow) 42%, transparent),
+      color-mix(in srgb, var(--glow) 70%, transparent),
       transparent 72%
     ),
     linear-gradient(
       180deg,
       transparent 0%,
-      color-mix(in srgb, var(--glow) 18%, transparent) 45%,
+      color-mix(in srgb, var(--honey) 55%, transparent) 45%,
       transparent 100%
     );
   color: var(--bronze);
@@ -119,7 +132,7 @@ body::before {
   z-index: 2;
   border-radius: inherit;
   box-shadow:
-    inset 0 0 48px 18px color-mix(in srgb, #ffffff 65%, transparent),
+    inset 0 0 48px 18px color-mix(in srgb, var(--cream) 60%, transparent),
     inset 0 0 0 1px color-mix(in srgb, var(--gold-metal) 12%, transparent);
 }
 
@@ -166,7 +179,7 @@ body::before {
   inset: 0;
   z-index: 2;
   border-radius: inherit;
-  box-shadow: inset 0 0 42px 16px color-mix(in srgb, #ffffff 50%, transparent);
+  box-shadow: inset 0 0 42px 16px color-mix(in srgb, var(--cream) 50%, transparent);
 }
 
 /* Soft gold veil between sections — no hard color blocks */
@@ -185,8 +198,8 @@ body::before {
   z-index: 1;
   background: linear-gradient(
     to bottom,
-    color-mix(in srgb, #ffffff 88%, transparent) 0%,
-    color-mix(in srgb, var(--glow) 28%, transparent) 42%,
+    color-mix(in srgb, var(--cream) 55%, transparent) 0%,
+    color-mix(in srgb, var(--glow) 35%, transparent) 42%,
     transparent 100%
   );
   filter: blur(14px);
@@ -228,12 +241,212 @@ body::before {
   will-change: transform;
 }
 
+.candle-flicker {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: candle-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes candle-flicker {
+  0%,
+  100% {
+    transform: scale(1, 1) skewX(0deg);
+  }
+  20% {
+    transform: scale(0.97, 1.05) skewX(1.5deg);
+  }
+  45% {
+    transform: scale(1.02, 0.96) skewX(-1deg);
+  }
+  70% {
+    transform: scale(0.98, 1.03) skewX(0.8deg);
+  }
+}
+
+.candle-smoke path {
+  fill: none;
+  stroke: #6f5a4a;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: candle-smoke 3.2s ease-out infinite;
+}
+
+.candle-smoke path:nth-child(2) {
+  animation-delay: 1.05s;
+}
+
+.candle-smoke path:nth-child(3) {
+  animation-delay: 2.1s;
+}
+
+@keyframes candle-smoke {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scaleX(1);
+  }
+  25% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-22px) scaleX(1.6);
+  }
+}
+
+.candle-float {
+  animation: candle-float 5s ease-in-out infinite;
+}
+
+@keyframes candle-float {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.candle-turn-stage {
+  perspective: 900px;
+}
+
+.candle-turn {
+  animation: candle-turn 10s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes candle-turn {
+  0%,
+  100% {
+    transform: rotateY(-24deg) translateY(0);
+  }
+  50% {
+    transform: rotateY(24deg) translateY(-10px);
+  }
+}
+
+.candle-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.candle-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: candle-marquee 45s linear infinite;
+}
+
+.candle-marquee:hover .candle-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes candle-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.pulse-ring--delayed {
+  animation-delay: 1.2s;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  80%,
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Route transitions: only page content animates, chrome stays anchored */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(site-header),
+::view-transition-group(floating-contact) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header),
+::view-transition-old(floating-contact) {
+  display: none;
+}
+
+::view-transition-new(site-header),
+::view-transition-new(floating-contact) {
+  animation: none;
+}
+
+::view-transition-old(.page-exit) {
+  animation: page-fade-out 260ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(.page-enter) {
+  animation: page-fade-in 620ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .ken-burns {
+  .ken-burns,
+  .candle-flicker,
+  .candle-float,
+  .candle-turn,
+  .candle-marquee-track,
+  .pulse-ring {
     animation: none;
+  }
+
+  .candle-marquee {
+    overflow-x: auto;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

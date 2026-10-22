@@ -4,10 +4,13 @@ import { ClosingCtaSection } from "@/components/home/ClosingCtaSection";
 import { CollectionsTeaserSection } from "@/components/home/CollectionsTeaserSection";
 import { CorporateGiftsSection } from "@/components/home/CorporateGiftsSection";
 import { CraftSection } from "@/components/home/CraftSection";
+import { DailyDesignSection } from "@/components/home/DailyDesignSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { LightInLifeSection } from "@/components/home/LightInLifeSection";
 import { TrustSection } from "@/components/home/TrustSection";
+import { PageTransition } from "@/components/motion/PageTransition";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { candleDesigns, getDesignOfTheDayIndex } from "@/lib/candle-designs";
 import { listPublishedCollections } from "@/lib/data/collections";
 import { getSection } from "@/lib/data/sections";
 import { getSiteSettings } from "@/lib/data/settings";
@@ -53,7 +56,7 @@ export default async function Home() {
   ]);
 
   return (
-    <>
+    <PageTransition>
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -73,6 +76,7 @@ export default async function Home() {
       />
       <HeroSection
         title={hero?.title ?? "La luz que acompaña tu vida"}
+        slogan="En Adaluz nos encanta que cada rincón de tu casa tenga un toque de luz y de amor."
         body={
           hero?.body ??
           "Creamos velas para convertir lo cotidiano en ritual y guardar en la memoria aquello que merece permanecer."
@@ -117,6 +121,11 @@ export default async function Home() {
         }
         imageUrl={craft?.imageUrl ?? undefined}
       />
+      <DailyDesignSection
+        designs={candleDesigns}
+        todayIndex={getDesignOfTheDayIndex(new Date())}
+        whatsappE164={settings.whatsappE164}
+      />
       <CorporateGiftsSection
         eyebrow="Detalles con intención"
         title={gift?.title ?? "Para quienes regalan luz"}
@@ -131,7 +140,7 @@ export default async function Home() {
         }}
       />
       <TrustSection
-        eyebrow="Confianza"
+        eyebrow="Experiencia Adaluz"
         title={trust?.title ?? "Luz que permanece en la memoria"}
         body={
           trust?.body ??
@@ -155,6 +164,6 @@ export default async function Home() {
           message: "Hola Adaluz, quiero elegir una vela.",
         }}
       />
-    </>
+    </PageTransition>
   );
 }

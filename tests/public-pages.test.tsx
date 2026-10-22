@@ -136,7 +136,8 @@ describe("Home", () => {
     const html = renderToStaticMarkup(await Home());
 
     expect(html).toContain('data-stage="hero-media"');
-    expect(html.match(/<section/g)).toHaveLength(7);
+    expect(html.match(/<section/g)).toHaveLength(8);
+    expect(html).toContain("Diseño del día");
     expect(html).toContain("Hero desde Postgres");
     expect(html).toContain("Origen");
     expect(html).toContain("Testimonio desde Postgres");

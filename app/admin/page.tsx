@@ -16,8 +16,8 @@ const sections = [
   },
   {
     href: "/admin/testimonios",
-    title: "Testimonios",
-    description: "Administra las historias visibles en el sitio.",
+    title: "Experiencia Adaluz",
+    description: "Administra los testimonios de clientes visibles en el sitio.",
   },
   {
     href: "/admin/ajustes",

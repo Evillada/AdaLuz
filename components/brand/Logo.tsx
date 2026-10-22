@@ -5,32 +5,23 @@ type LogoProps = {
   className?: string;
 };
 
-const crops = {
-  symbol: { x: 475, y: 250, width: 140, height: 170 },
-  lockup: { x: 445, y: 245, width: 205, height: 235 },
+const assets = {
+  symbol: { src: "/brand/adaluz-symbol.png", width: 560, height: 680 },
+  lockup: { src: "/brand/adaluz-lockup.png", width: 820, height: 940 },
 } as const;
 
 export function Logo({ variant, className }: LogoProps) {
-  const crop = crops[variant];
+  const asset = assets[variant];
 
   return (
-    <span
-      className={`relative block overflow-hidden ${className ?? ""}`}
-      style={{ aspectRatio: `${crop.width} / ${crop.height}` }}
-    >
+    <span className={`relative block ${className ?? ""}`}>
       <Image
-        src="/brand/adaluz-brand-sheet.png"
+        src={asset.src}
         alt="Adaluz"
-        width={1024}
-        height={801}
+        width={asset.width}
+        height={asset.height}
         priority
-        className="absolute max-w-none mix-blend-multiply"
-        style={{
-          width: `${(1024 / crop.width) * 100}%`,
-          height: "auto",
-          left: `${(-crop.x / crop.width) * 100}%`,
-          top: `${(-crop.y / crop.height) * 100}%`,
-        }}
+        className="h-auto w-full drop-shadow-[0_1px_1.5px_rgba(58,36,20,0.5)]"
       />
     </span>
   );

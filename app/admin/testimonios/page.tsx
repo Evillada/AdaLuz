@@ -12,10 +12,10 @@ export default async function TestimonialsAdminPage() {
     <>
       <header>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ochre">
-          Confianza
+          Testimonios
         </p>
         <h1 className="mt-2 font-serif text-4xl font-semibold text-bronze">
-          Testimonios
+          Experiencia Adaluz
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-bronze/65">
           Crea, publica y organiza las voces que aparecen en la página de

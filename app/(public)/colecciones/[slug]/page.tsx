@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { CatalogEmptyState } from "@/components/catalog/CatalogEmptyState";
 import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { bodyClass, eyebrowClass, textLinkClass } from "@/components/ui/styles";
 import { getPublishedCollectionBySlug } from "@/lib/data/collections";
 import { getSiteSettings } from "@/lib/data/settings";
 import { createPublicMetadata } from "@/lib/seo";
@@ -48,20 +49,17 @@ export default async function CollectionPage(
 
   return (
     <PageTransition>
-      <section className="band-light section-blend px-6 py-24 sm:py-36">
+      <section className="px-6 py-20 sm:py-28">
         <div className="mx-auto w-full max-w-6xl">
-          <p className="text-xs font-semibold tracking-[0.24em] text-ochre uppercase">
-            Colección
-          </p>
-          <h1 className="mt-5 font-serif text-5xl leading-none text-ochre sm:text-7xl">
-            {collection.name}
-          </h1>
-          <p className="mt-5 font-serif text-2xl text-bronze/80">
-            {collection.tagline}
-          </p>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-bronze/75">
-            {collection.description}
-          </p>
+          <div className="text-center">
+            <p className={eyebrowClass}>Colección</p>
+            <h1 className="mt-5 font-serif text-[2.6rem] leading-[1.05] text-ink sm:text-7xl">
+              {collection.name}
+            </h1>
+            <p className="mt-4 font-serif text-2xl text-muted italic">{collection.tagline}</p>
+            <div className="gold-rule mx-auto mt-7" />
+            <p className={`mx-auto mt-7 max-w-2xl ${bodyClass}`}>{collection.description}</p>
+          </div>
 
           <div className="mt-16">
             {collection.products.length === 0 ? (
@@ -70,23 +68,16 @@ export default async function CollectionPage(
                 message={`Hola Adaluz, quiero conocer la colección ${collection.name}.`}
               />
             ) : (
-              <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+              <div className="grid gap-14 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
                 {collection.products.map((product) => (
                   <article key={product.id} className="group">
                     <CatalogImage
                       imageUrl={product.imageUrl}
-                      className="aspect-[5/6] transition-transform duration-700 group-hover:scale-[1.02]"
+                      className="mx-auto aspect-[4/5] w-[min(70vw,18rem)] transition-transform duration-700 group-hover:scale-[1.02]"
                     />
-                    <h2 className="mt-7 font-serif text-3xl text-ochre">
-                      {product.name}
-                    </h2>
-                    <p className="mt-3 leading-7 text-bronze/75">
-                      {product.description}
-                    </p>
-                    <Link
-                      href={`/productos/${product.slug}`}
-                      className="mt-5 inline-flex border-b border-ochre pb-1 text-sm font-semibold tracking-[0.12em] uppercase"
-                    >
+                    <h2 className="mt-8 font-serif text-3xl text-ink">{product.name}</h2>
+                    <p className="mx-auto mt-3 max-w-sm leading-7 text-ink-soft">{product.description}</p>
+                    <Link href={`/productos/${product.slug}`} className={`mt-5 ${textLinkClass}`}>
                       Conocer
                     </Link>
                   </article>

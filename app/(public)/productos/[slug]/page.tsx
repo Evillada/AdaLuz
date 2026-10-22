@@ -6,6 +6,7 @@ import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { bodyClass, eyebrowClass, primaryButtonClass } from "@/components/ui/styles";
 import { getAvailableProductBySlug } from "@/lib/data/products";
 import { getSiteSettings } from "@/lib/data/settings";
 import { absoluteUrl, createPublicMetadata } from "@/lib/seo";
@@ -50,7 +51,7 @@ export default async function ProductPage(
 
   return (
     <PageTransition>
-      <section className="band-light section-blend px-6 py-24 sm:py-36">
+      <section className="px-6 py-20 sm:py-28">
         <JsonLd
           data={{
             "@context": "https://schema.org",
@@ -73,29 +74,25 @@ export default async function ProductPage(
             },
           }}
         />
-        <div className="mx-auto grid w-full max-w-6xl gap-14 md:grid-cols-2 md:items-center">
+        <div className="mx-auto grid w-full max-w-5xl items-center gap-12 text-center md:grid-cols-2 md:gap-20 md:text-left">
           <CatalogImage
             imageUrl={product.imageUrl}
-            className="aspect-[5/6] w-full max-w-md md:max-w-none"
+            className="mx-auto aspect-[4/5] w-[min(72vw,22rem)]"
           />
           <div>
-            <Link
-              href={`/colecciones/${product.collection.slug}`}
-              className="text-xs font-semibold tracking-[0.2em] text-ochre uppercase"
-            >
+            <Link href={`/colecciones/${product.collection.slug}`} className={eyebrowClass}>
               {product.collection.name}
             </Link>
-            <h1 className="mt-5 font-serif text-5xl leading-none text-ochre sm:text-7xl">
+            <h1 className="mt-5 font-serif text-[2.6rem] leading-[1.05] text-ink sm:text-6xl">
               {product.name}
             </h1>
-            <p className="mt-7 text-lg leading-8 text-bronze/80">
-              {product.description}
-            </p>
+            <div className="gold-rule mx-auto mt-7 md:mx-0" />
+            <p className={`mt-7 ${bodyClass}`}>{product.description}</p>
             <WhatsAppLink
               e164={settings.whatsappE164}
               label="Consultar disponibilidad"
               message={`Hola Adaluz, quiero información sobre ${product.name}.`}
-              className="mt-10 inline-flex border-b border-ochre pb-1 text-sm font-semibold tracking-[0.14em] uppercase"
+              className={`mt-10 ${primaryButtonClass}`}
             />
           </div>
         </div>

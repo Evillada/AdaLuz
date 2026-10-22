@@ -1,5 +1,6 @@
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { bodyClass, eyebrowClass, primaryButtonClass } from "@/components/ui/styles";
 
 type PublicPageIntroProps = {
   eyebrow?: string;
@@ -18,27 +19,20 @@ export function PublicPageIntro({
 }: PublicPageIntroProps) {
   return (
     <PageTransition>
-      <section className="flex flex-1 px-6 py-24 sm:py-36">
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="max-w-3xl">
-            {eyebrow && (
-              <p className="text-xs font-semibold tracking-[0.24em] text-ochre uppercase">
-                {eyebrow}
-              </p>
-            )}
-            <h1 className="mt-5 font-serif text-5xl leading-none text-ochre sm:text-7xl">
-              {title}
-            </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-bronze/80">
-              {body}
-            </p>
-            <WhatsAppLink
-              e164={whatsappE164}
-              label="Hablar con Adaluz"
-              message={whatsappMessage}
-              className="mt-10 inline-flex border-b border-ochre pb-1 text-sm font-semibold tracking-[0.14em] uppercase"
-            />
-          </div>
+      <section className="flex flex-1 px-6 py-20 text-center sm:py-28">
+        <div className="mx-auto w-full max-w-3xl">
+          {eyebrow && <p className={eyebrowClass}>{eyebrow}</p>}
+          <h1 className="mt-5 font-serif text-[2.6rem] leading-[1.05] text-ink sm:text-7xl">
+            {title}
+          </h1>
+          <div className="gold-rule mx-auto mt-7" />
+          <p className={`mx-auto mt-7 max-w-2xl ${bodyClass}`}>{body}</p>
+          <WhatsAppLink
+            e164={whatsappE164}
+            label="Hablar con Adaluz"
+            message={whatsappMessage}
+            className={`mt-10 ${primaryButtonClass}`}
+          />
         </div>
       </section>
     </PageTransition>

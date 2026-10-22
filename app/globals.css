@@ -73,12 +73,9 @@ html {
   scroll-behavior: smooth;
 }
 
+/* No body background: the dark-mode candle glows sit between it and <html>. */
 body {
   min-height: 100dvh;
-  background: var(--paper);
-  transition:
-    background-color 0.4s ease,
-    color 0.4s ease;
 }
 
 .theme-light {
@@ -116,6 +113,47 @@ body {
   border-radius: 50%;
   background: radial-gradient(closest-side, var(--halo), transparent);
   animation: halo-breathe 5s ease-in-out infinite;
+}
+
+.candle-glow {
+  position: absolute;
+  width: var(--glow-size);
+  height: var(--glow-size);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(232, 176, 92, 0.2) 0%,
+    rgba(214, 150, 70, 0.08) 38%,
+    transparent 68%
+  );
+  transform: translate(-50%, -50%);
+  animation: candle-flicker 8s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+@keyframes candle-flicker {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  18% {
+    opacity: 0.85;
+  }
+  34% {
+    opacity: 0.6;
+    transform: translate(-50%, -51%) scale(1.04);
+  }
+  52% {
+    opacity: 0.95;
+  }
+  70% {
+    opacity: 0.65;
+    transform: translate(-50%, -49%) scale(0.98);
+  }
+  86% {
+    opacity: 0.8;
+  }
 }
 
 @keyframes halo-breathe {
@@ -207,12 +245,9 @@ body {
     scroll-behavior: auto;
   }
 
-  body {
-    transition: none;
-  }
-
   .oval-halo,
-  .pulse-ring {
+  .pulse-ring,
+  .candle-glow {
     animation: none;
   }
 

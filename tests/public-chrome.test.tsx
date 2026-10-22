@@ -92,4 +92,17 @@ describe("PublicLayout", () => {
     expect(html).toContain('href="https://wa.me/573113187927?text=Hola%20Adaluz%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n."');
     expect(html).toContain('href="https://instagram.com/velasadaluz"');
   });
+
+  it("adds decorative candle glows that only show in dark mode", async () => {
+    const html = renderToStaticMarkup(
+      await PublicLayout({
+        params: Promise.resolve({}),
+        children: <p>Contenido</p>,
+      }),
+    );
+    const layer = html.slice(html.indexOf("data-candle-glows"));
+
+    expect(layer).toMatch(/^data-candle-glows="true" aria-hidden="true" class="[^"]*hidden[^"]*dark:block/);
+    expect(layer.match(/class="candle-glow/g)?.length).toBeGreaterThanOrEqual(5);
+  });
 });

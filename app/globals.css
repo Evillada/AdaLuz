@@ -81,6 +81,10 @@ body {
     color 0.4s ease;
 }
 
+.theme-light {
+  color: var(--ink);
+}
+
 ::selection {
   background: color-mix(in srgb, var(--gold-line) 35%, transparent);
   color: var(--ink);
